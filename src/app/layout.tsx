@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "kelainvest",
-  description: "Gestion immobilier",
+  title: "Kelainvest",
+  description: "Gestion de Patrimoine",
 };
 
 export default function RootLayout({
