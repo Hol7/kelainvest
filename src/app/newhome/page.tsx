@@ -399,6 +399,10 @@ export default function NewHome() {
                 <p className="text-lg italic">
                   `Service exceptionnel et professionnalisme remarquable.`
                 </p>
+                <p>
+
+                  This parragraph will be removed
+                </p>
                 <p className="text-gold-500 mt-2">Client {index}</p>
               </div>
             </div>
