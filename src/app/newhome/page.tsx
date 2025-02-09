@@ -58,6 +58,7 @@ type Content = {
     propertyTransactionDesc: string;
     legalAssistanceTitle: string;
     legalAssistanceDesc: string;
+    gallery:string;
     fondateur:{
       titre: string,
       description: string
@@ -144,6 +145,7 @@ export default function NewHome() {
       rentCollectionTitle: "Rent Collection",
       rentCollectionDesc:
         "We manage rent collection for you, simplifying your cash flow.",
+      gallery:"Gallery",
       contactForm: {
         name: "Name",
         email: "Email",
@@ -199,6 +201,7 @@ export default function NewHome() {
       rentCollectionTitle: "Collecte de loyer",
       rentCollectionDesc:
         "Nous gérons la collecte des loyers pour vous, simplifiant ainsi votre flux de trésorerie.",
+      gallery:"Notre gallerie",
       contactForm: {
         name: "Nom",
         email: "Email",
@@ -235,31 +238,31 @@ export default function NewHome() {
     <nav className="hidden md:flex items-center space-x-8">
       <Link
         href="#home"
-        className="hover:text-gold-500 transition-colors"
+        className="hover:text-yellow-600"
       >
         {content[language].navbar.home}
       </Link>
       <Link
         href="#services"
-        className="hover:text-gold-500 transition-colors"
+        className="hover:text-yellow-600 transition-colors"
       >
         {content[language].navbar.services}
       </Link>
       <Link
         href="#testimonials"
-        className="hover:text-gold-500 transition-colors"
+        className="hover:text-yellow-600"
       >
         {content[language].navbar.testimonials}
       </Link>
       <Link
         href="#about"
-        className="hover:text-gold-500 transition-colors"
+        className="hover:text-yellow-600"
       >
         {content[language].navbar.about}
       </Link>
       <Link
         href="#contact"
-        className="hover:text-gold-500 transition-colors"
+        className="hover:text-yellow-600"
       >
         {content[language].navbar.contact}
       </Link>
@@ -541,7 +544,7 @@ export default function NewHome() {
       <section className="py-20 px-4 bg-gray-50">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl font-bold text-center mb-12">
-            Notre Galerie
+            {content[language].gallery}
           </h2>
           <motion.div
             initial={{ opacity: 0 }}
