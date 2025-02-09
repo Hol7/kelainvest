@@ -501,6 +501,28 @@ export default function NewHome() {
         </div>
       </section>
 
+         {/* Updated About Section */}
+         <section id="about" className="py-20 px-6 max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 className="text-3xl font-semibold mb-6">
+                {content[language].fondateur.titre}
+              </h2>
+              <p className="text-lg">
+                {content[language].fondateur.description}
+              </p>
+            </div>
+            <div className="relative h-[400px]">
+              <Image
+                src={patrick}
+                alt="About Kelainvest"
+                fill
+                className="object-cover rounded-lg"
+              />
+            </div>
+          </div>
+        </section>
+
       <motion.section
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -652,27 +674,7 @@ export default function NewHome() {
           ))}
         </motion.div>
 
-        {/* Updated About Section */}
-        <section id="about" className="py-20 px-6 max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-3xl font-semibold mb-6">
-                {content[language].fondateur.titre}
-              </h2>
-              <p className="text-lg">
-                {content[language].fondateur.description}
-              </p>
-            </div>
-            <div className="relative h-[400px]">
-              <Image
-                src={patrick}
-                alt="About Kelainvest"
-                fill
-                className="object-cover rounded-lg"
-              />
-            </div>
-          </div>
-        </section>
+     
 
         {/* Contact Section */}
         <section id="contact" className="py-20 px-6 max-w-6xl mx-auto">
