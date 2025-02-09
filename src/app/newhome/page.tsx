@@ -385,7 +385,7 @@ export default function NewHome() {
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.2 }}
-            className="md:text-2xl font-bold text-white mb-6"
+            className="md:text-3xl font-bold text-white mb-6"
           >
             {content[language].heroSubtitle}
           </motion.h2>
@@ -505,9 +505,12 @@ export default function NewHome() {
          <section id="about" className="py-20 px-6 max-w-6xl mx-auto">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-3xl font-semibold mb-6">
+              <h2 className="text-3xl font-semibold mb-4">
                 {content[language].fondateur.titre}
               </h2>
+              <p className="font-bold text-lg mb-2">
+                Monsieur Patrick KABANGU
+              </p>
               <p className="text-lg">
                 {content[language].fondateur.description}
               </p>
@@ -719,6 +722,8 @@ export default function NewHome() {
 
               <div className="flex items-center space-x-4">
                 <Icon
+                height={40}
+                width={40}
                   icon="mdi:office-building-marker"
                   className="text-2xl text-gold-500"
                 />
