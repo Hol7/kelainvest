@@ -385,7 +385,7 @@ export default function NewHome() {
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.2 }}
-            className="md:text-5xl font-bold text-white mb-6"
+            className="md:text-2xl font-bold text-white mb-6"
           >
             {content[language].heroSubtitle}
           </motion.h2>
