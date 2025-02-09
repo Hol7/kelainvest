@@ -1,5 +1,5 @@
 "use client";
-import { useState,  } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence, } from "framer-motion";
 
 // import { useState,  } from "react";
@@ -85,33 +85,33 @@ type Content = {
 export default function NewHome() {
   const [language, setLanguage] = useState<Language>("en");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  // const [lastScrollY, setLastScrollY] = useState(0);
-  // const [shouldShowHeader, setShouldShowHeader] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+  const [shouldShowHeader, setShouldShowHeader] = useState(true);
 
-  // // Add scroll handler
-  // useEffect(() => {
-  //   const controlHeader = () => {
-  //     if (typeof window !== "undefined") {
-  //       // Show header when scrolling up or at top
-  //       if (window.scrollY < lastScrollY || window.scrollY < 10) {
-  //         setShouldShowHeader(true);
-  //       } else {
-  //         // Hide header when scrolling down
-  //         setShouldShowHeader(false);
-  //       }
-  //       setLastScrollY(window.scrollY);
-  //     }
-  //   };
+  // Add scroll handler
+  useEffect(() => {
+    const controlHeader = () => {
+      if (typeof window !== "undefined") {
+        // Show header when scrolling up or at top
+        if (window.scrollY < lastScrollY || window.scrollY < 10) {
+          setShouldShowHeader(true);
+        } else {
+          // Hide header when scrolling down
+          setShouldShowHeader(false);
+        }
+        setLastScrollY(window.scrollY);
+      }
+    };
 
-  //   if (typeof window !== "undefined") {
-  //     window.addEventListener("scroll", controlHeader);
+    if (typeof window !== "undefined") {
+      window.addEventListener("scroll", controlHeader);
 
-  //     // Cleanup
-  //     return () => {
-  //       window.removeEventListener("scroll", controlHeader);
-  //     };
-  //   }
-  // }, [lastScrollY]);
+      // Cleanup
+      return () => {
+        window.removeEventListener("scroll", controlHeader);
+      };
+    }
+  }, [lastScrollY]);
 
   const testimonials = [
     {
@@ -256,15 +256,15 @@ export default function NewHome() {
       {/* Updated Header with Navigation */}
 
       <motion.header
-        // initial={{ y: 0, opacity: 1 }}
-        // animate={{
-        //   y: shouldShowHeader ? 0 : -100,
-        //   opacity: shouldShowHeader ? 1 : 0,
-        // }}
-        // transition={{
-        //   duration: 0.3,
-        //   ease: "easeInOut",
-        // }}
+        initial={{ y: 0, opacity: 1 }}
+        animate={{
+          y: shouldShowHeader ? 0 : -100,
+          opacity: shouldShowHeader ? 1 : 0,
+        }}
+        transition={{
+          duration: 0.3,
+          ease: "easeInOut",
+        }}
         className="bg-white font-bold text-black py-6 px-8 fixed w-full z-50"
       >
         <div className="max-w-6xl mx-auto flex justify-between items-center">
