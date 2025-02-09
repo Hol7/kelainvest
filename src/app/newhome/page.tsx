@@ -185,7 +185,7 @@ export default function NewHome() {
       fondateur: {
         titre: "Founder",
         description:
-          "Investing in the Democratic Republic of Congo has always been a goal and a dream for many Congolese from the diaspora and present in the country. However, a number of ills generally gnaw at ambitions and discourage people to remedy this problem, we have decided to come to your aid by putting at your disposal our expertise of several years in the largest French banks and real estate agencies",
+          "Investing in the Democratic Republic of Congo has always been a goal and a dream for many Congolese from the diaspora and those living in the country, but there are a number of problems that generally eat away at ambitions and systematically discourage investment. To remedy this problem, we have decided to come to your aid by making available to you our expertise and experience of several years in the largest French banks and estate agencies",
       },
 
       propertyTransactionTitle: "Real Estate Purchase & Sale",
@@ -244,7 +244,7 @@ export default function NewHome() {
       fondateur: {
         titre: "Fondateur",
         description:
-          "Investir en République Démocratique du Congo a toujours été un objectif et un rêve pour beaucoup de congolais issus de la diaspora et présents au pays, en revanche, plusieurs maux rongent généralement les ambitions et découragent afin de remédier à cette problématique, nous avons décidé de vous venir en aide en mettant à votre disposition notre expertise de plusieurs années dans les plus grandes banques et agences immobilières Françaises.",
+          "Investir en République Démocratique du Congo a toujours été un objectif et un rêve pour beaucoup de Congolais issus de la diaspora et ceux vivant présents au pays, en revanche, plusieurs maux rongent généralement les ambitions et découragent systématiquement. Afin de remédier à cette problématique, nous avons décidé de vous venir en aide en mettant à votre disposition notre expertise et expérience de plusieurs années dans les plus grandes banques et agences immobilières Françaises.",
       },
       propertyTransactionTitle: "Achat et Vente de Bien Immobilier",
       propertyTransactionDesc:
