@@ -487,9 +487,9 @@ export default function NewHome() {
               className="text-5xl mb-6"
               style={{ color: "#FFD700" }}
             />
-            <h3 className="font-semibold mb-2">
+            {/* <h3 className="font-semibold mb-2">
               {content[language].legalAssistanceTitle}
-            </h3>
+            </h3> */}
             <p className="text-sm">{content[language].legalAssistanceDesc}</p>
           </motion.div>
         </div>
