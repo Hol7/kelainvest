@@ -387,7 +387,7 @@ export default function NewHome() {
             transition={{ delay: 0.2 }}
             className="md:text-5xl font-bold text-white mb-6"
           >
-            {content[language].slogan}
+            {content[language].heroSubtitle}
           </motion.h2>
           <motion.p
             initial={{ y: 20, opacity: 0 }}
@@ -395,7 +395,9 @@ export default function NewHome() {
             transition={{ delay: 0.4 }}
             className="text-xl text-white mb-8"
           >
-            {content[language].heroSubtitle}
+            
+            {content[language].slogan}
+
           </motion.p>
           {/* <motion.button
             initial={{ y: 20, opacity: 0 }}
