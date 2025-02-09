@@ -1,6 +1,9 @@
 "use client";
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence, useScroll } from "framer-motion";
+
+// import { useState,  } from "react";
+// import { motion, useScroll } from "framer-motion";
 import { Icon } from "@iconify/react";
 import Link from "next/link";
 import Image from "next/image";
@@ -12,9 +15,8 @@ import { Montserrat } from "next/font/google";
 // import hall from "@/../../public/images/three-diverse-business-partners-meeting-office-hall.jpg";
 import cafe from "@/../../public/images/two-african-businessman-sitting-outside-cafe.jpg";
 import hero from "@/../../public/images/apartment-building-city-with-copy-space.jpg";
-import patrick from "@/../../public/images/patrick.jpeg"
-import woman from "@/../../public/images/smiling-woman-writing-notes-tablet-digital-device_53876-111318.jpg"
-
+import patrick from "@/../../public/images/patrick.jpeg";
+import woman from "@/../../public/images/smiling-woman-writing-notes-tablet-digital-device_53876-111318.jpg";
 
 import face from "@/../../public/images/faces/beautiful-african-young-woman-face-portrait.jpg";
 import face1 from "@/../../public/images/faces/handsome-man-smiling-happy-face-portrait-close-up.jpg";
@@ -23,13 +25,12 @@ import face3 from "@/../../public/images/faces/handsome-adult-male-posing_23-214
 
 // gallery
 
-import interior from "@/../../public/images/appartments/beautiful-summer-modern-home-interior-design.jpg"
-import architecture from "@/../../public/images/appartments/modern-apartment-architecture.jpg"
-import building from "@/../../public/images/appartments/modern-building-architecture.jpg"
-import style from "@/../../public/images/appartments/modern-style-house-exterior-with-terrace.jpg"
-import rural from "@/../../public/images/appartments/rural-house-with-stone-pathway.jpg"
-import spacious from "@/../../public/images/appartments/spacious-room-with-big-window.jpg"
-
+import interior from "@/../../public/images/appartments/beautiful-summer-modern-home-interior-design.jpg";
+import architecture from "@/../../public/images/appartments/modern-apartment-architecture.jpg";
+import building from "@/../../public/images/appartments/modern-building-architecture.jpg";
+import style from "@/../../public/images/appartments/modern-style-house-exterior-with-terrace.jpg";
+import rural from "@/../../public/images/appartments/rural-house-with-stone-pathway.jpg";
+import spacious from "@/../../public/images/appartments/spacious-room-with-big-window.jpg";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 
@@ -58,10 +59,10 @@ type Content = {
     propertyTransactionDesc: string;
     legalAssistanceTitle: string;
     legalAssistanceDesc: string;
-    gallery:string;
-    fondateur:{
-      titre: string,
-      description: string
+    gallery: string;
+    fondateur: {
+      titre: string;
+      description: string;
     };
     contactForm: {
       name: string;
@@ -84,30 +85,56 @@ type Content = {
 export default function NewHome() {
   const [language, setLanguage] = useState<Language>("en");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [lastScrollY, setLastScrollY] = useState(0);
+  const [shouldShowHeader, setShouldShowHeader] = useState(true);
 
+  // Add scroll handler
+  useEffect(() => {
+    const controlHeader = () => {
+      if (typeof window !== "undefined") {
+        // Show header when scrolling up or at top
+        if (window.scrollY < lastScrollY || window.scrollY < 10) {
+          setShouldShowHeader(true);
+        } else {
+          // Hide header when scrolling down
+          setShouldShowHeader(false);
+        }
+        setLastScrollY(window.scrollY);
+      }
+    };
+
+    if (typeof window !== "undefined") {
+      window.addEventListener("scroll", controlHeader);
+
+      // Cleanup
+      return () => {
+        window.removeEventListener("scroll", controlHeader);
+      };
+    }
+  }, [lastScrollY]);
 
   const testimonials = [
     {
-      id:1,
-      image:face,
-      message:"Service exceptionnel et professionnalisme remarquable."
+      id: 1,
+      image: face,
+      message: "Service exceptionnel et professionnalisme remarquable.",
     },
     {
-      id:2,
-      image:face1,
-      message:"Service exceptionnel et professionnalisme remarquable."
+      id: 2,
+      image: face1,
+      message: "Service exceptionnel et professionnalisme remarquable.",
     },
     {
-      id:3,
-      image:face2,
-      message:"Service exceptionnel et professionnalisme remarquable."
+      id: 3,
+      image: face2,
+      message: "Service exceptionnel et professionnalisme remarquable.",
     },
     {
-      id:4,
-      image:face3,
-      message:"Service exceptionnel et professionnalisme remarquable."
+      id: 4,
+      image: face3,
+      message: "Service exceptionnel et professionnalisme remarquable.",
     },
-  ]
+  ];
 
   const content: Content = {
     en: {
@@ -116,7 +143,7 @@ export default function NewHome() {
         services: "Services",
         testimonials: "Testimonials",
         about: "About",
-        contact: "Contact"
+        contact: "Contact",
       },
       heroTitle:
         "Your Property, Our Expertise  Seamless Management & Investment Solutions",
@@ -145,7 +172,7 @@ export default function NewHome() {
       rentCollectionTitle: "Rent Collection",
       rentCollectionDesc:
         "We manage rent collection for you, simplifying your cash flow.",
-      gallery:"Gallery",
+      gallery: "Gallery",
       contactForm: {
         name: "Name",
         email: "Email",
@@ -153,17 +180,18 @@ export default function NewHome() {
         message: "Message",
         submit: "Send Message",
       },
-      fondateur:{
+      fondateur: {
         titre: "Founder",
-        description: "Investing in the Democratic Republic of Congo has always been a goal and a dream for many Congolese from the diaspora and present in the country. However, a number of ills generally gnaw at ambitions and discourage people to remedy this problem, we have decided to come to your aid by putting at your disposal our expertise of several years in the largest French banks and real estate agencies",
+        description:
+          "Investing in the Democratic Republic of Congo has always been a goal and a dream for many Congolese from the diaspora and present in the country. However, a number of ills generally gnaw at ambitions and discourage people to remedy this problem, we have decided to come to your aid by putting at your disposal our expertise of several years in the largest French banks and real estate agencies",
       },
 
       propertyTransactionTitle: "Real Estate Purchase & Sale",
-      propertyTransactionDesc: "Document and owner authentication, land prospecting and study, valuation, feasibility and profitability analysis...",
+      propertyTransactionDesc:
+        "Document and owner authentication, land prospecting and study, valuation, feasibility and profitability analysis...",
       legalAssistanceTitle: "Legal Assistance",
-      legalAssistanceDesc: "Legal support from our lawyers before, during and after any dispute."
-
-,
+      legalAssistanceDesc:
+        "Legal support from our lawyers before, during and after any dispute.",
     },
     fr: {
       navbar: {
@@ -171,7 +199,7 @@ export default function NewHome() {
         services: "Services",
         testimonials: "Témoignages",
         about: "À Propos",
-        contact: "Contact"
+        contact: "Contact",
       },
       heroTitle:
         "Votre Propriété, Notre Expertise  Solutions Élégantes de Gestion & Investissement",
@@ -201,7 +229,7 @@ export default function NewHome() {
       rentCollectionTitle: "Collecte de loyer",
       rentCollectionDesc:
         "Nous gérons la collecte des loyers pour vous, simplifiant ainsi votre flux de trésorerie.",
-      gallery:"Notre gallerie",
+      gallery: "Notre gallerie",
       contactForm: {
         name: "Nom",
         email: "Email",
@@ -209,127 +237,132 @@ export default function NewHome() {
         message: "Message",
         submit: "Envoyer le message",
       },
-      fondateur:{
-        titre:"Fondateur",
-        description:"Investir en République Démocratique du Congo a toujours été un objectif et un rêve pour beaucoup de congolais issus de la diaspora et présents au pays, en revanche, plusieurs maux rongent généralement les ambitions et découragent afin de remédier à cette problématique, nous avons décidé de vous venir en aide en mettant à votre disposition notre expertise de plusieurs années dans les plus grandes banques et agences immobilières Françaises."
+      fondateur: {
+        titre: "Fondateur",
+        description:
+          "Investir en République Démocratique du Congo a toujours été un objectif et un rêve pour beaucoup de congolais issus de la diaspora et présents au pays, en revanche, plusieurs maux rongent généralement les ambitions et découragent afin de remédier à cette problématique, nous avons décidé de vous venir en aide en mettant à votre disposition notre expertise de plusieurs années dans les plus grandes banques et agences immobilières Françaises.",
       },
       propertyTransactionTitle: "Achat et Vente de Bien Immobilier",
-      propertyTransactionDesc: "Authentification des documents et propriétaires, prospection et étude du terrain, valorisation, analyse de faisabilité et rentabilité...",
+      propertyTransactionDesc:
+        "Authentification des documents et propriétaires, prospection et étude du terrain, valorisation, analyse de faisabilité et rentabilité...",
       legalAssistanceTitle: "Assistance Juridique",
-      legalAssistanceDesc: "Accompagnement juridique par nos juristes avant, pendant et après chaque litige.",
+      legalAssistanceDesc:
+        "Accompagnement juridique par nos juristes avant, pendant et après chaque litige.",
     },
   };
 
   return (
     <div className={`${montserrat.className} bg-gray-100 text-gray-900`}>
       {/* Updated Header with Navigation */}
-     
-<header className="bg-white font-bold text-black py-6 px-8 fixed w-full z-50">
-  <div className="max-w-6xl mx-auto flex justify-between items-center">
-    <motion.h1
-      initial={{ opacity: 0, x: -20 }}
-      animate={{ opacity: 1, x: 0 }}
-      className="text-3xl font-bold text-gold-500"
-    >
-      Kelainvest
-    </motion.h1>
 
-    {/* Desktop Navigation */}
-    <nav className="hidden md:flex items-center space-x-8">
-      <Link
-        href="#home"
-        className="hover:text-yellow-600"
+      <motion.header
+        initial={{ y: 0, opacity: 1 }}
+        animate={{
+          y: shouldShowHeader ? 0 : -100,
+          opacity: shouldShowHeader ? 1 : 0,
+        }}
+        transition={{
+          duration: 0.3,
+          ease: "easeInOut",
+        }}
+        className="bg-white font-bold text-black py-6 px-8 fixed w-full z-50"
       >
-        {content[language].navbar.home}
-      </Link>
-      <Link
-        href="#services"
-        className="hover:text-yellow-600 transition-colors"
-      >
-        {content[language].navbar.services}
-      </Link>
-      <Link
-        href="#testimonials"
-        className="hover:text-yellow-600"
-      >
-        {content[language].navbar.testimonials}
-      </Link>
-      <Link
-        href="#about"
-        className="hover:text-yellow-600"
-      >
-        {content[language].navbar.about}
-      </Link>
-      <Link
-        href="#contact"
-        className="hover:text-yellow-600"
-      >
-        {content[language].navbar.contact}
-      </Link>
-    </nav>
+        <div className="max-w-6xl mx-auto flex justify-between items-center">
+          <motion.h1
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="text-3xl font-bold text-gold-500"
+          >
+            Kelainvest
+          </motion.h1>
 
-    {/* Language Toggle Button */}
-    <button
-      className="px-4 py-2 border border-gold-500 rounded-lg hover:bg-gold-500 transition-all"
-      onClick={() => setLanguage(language === "en" ? "fr" : "en")}
-    >
-      {language === "en" ? "Fr" : "En"}
-    </button>
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center space-x-8">
+            <Link href="#home" className="hover:text-yellow-600">
+              {content[language].navbar.home}
+            </Link>
+            <Link
+              href="#services"
+              className="hover:text-yellow-600 transition-colors"
+            >
+              {content[language].navbar.services}
+            </Link>
+            <Link href="#testimonials" className="hover:text-yellow-600">
+              {content[language].navbar.testimonials}
+            </Link>
+            <Link href="#about" className="hover:text-yellow-600">
+              {content[language].navbar.about}
+            </Link>
+            <Link href="#contact" className="hover:text-yellow-600">
+              {content[language].navbar.contact}
+            </Link>
+          </nav>
 
-    {/* Mobile Menu Button */}
-    <button
-      className="md:hidden text-gold-500"
-      onClick={() => setIsMenuOpen(!isMenuOpen)}
-    >
-      <Icon icon={isMenuOpen ? "mdi:close" : "mdi:menu"} className="text-2xl" />
-    </button>
-  </div>
+          {/* Language Toggle Button */}
+          <button
+            className="px-4 py-2 border border-gold-500 rounded-lg hover:bg-gold-500 transition-all"
+            onClick={() => setLanguage(language === "en" ? "fr" : "en")}
+          >
+            {language === "en" ? "Fr" : "En"}
+          </button>
 
-  {/* Mobile Navigation */}
-  <AnimatePresence>
-    {isMenuOpen && (
-      <motion.nav
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -20 }}
-        className="md:hidden absolute top-full left-0 w-full bg-white py-4"
-      >
-        <div className="flex flex-col items-center space-y-4">
-          <Link
-            href="#home"
-            className="hover:text-gold-500 transition-colors"
+          {/* Mobile Menu Button */}
+          <button
+            className="md:hidden text-gold-500"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
-            {content[language].navbar.home}
-          </Link>
-          <Link
-            href="#services"
-            className="hover:text-gold-500 transition-colors"
-          >
-            {content[language].navbar.services}
-          </Link>
-          <Link
-            href="#testimonials"
-            className="hover:text-gold-500 transition-colors"
-          >
-            {content[language].navbar.testimonials}
-          </Link>
-          <Link
-            href="#about"
-            className="hover:text-gold-500 transition-colors"
-          >
-            {content[language].navbar.about}
-          </Link>
-          <Link
-            href="#contact"
-            className="hover:text-gold-500 transition-colors"
-          >
-            {content[language].navbar.contact}
-          </Link>
+            <Icon
+              icon={isMenuOpen ? "mdi:close" : "mdi:menu"}
+              className="text-2xl"
+            />
+          </button>
         </div>
-      </motion.nav>
-    )}
-  </AnimatePresence>
-</header>
+
+        {/* Mobile Navigation */}
+        <AnimatePresence>
+          {isMenuOpen && (
+            <motion.nav
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="md:hidden absolute top-full left-0 w-full bg-white py-4"
+            >
+              <div className="flex flex-col items-center space-y-4">
+                <Link
+                  href="#home"
+                  className="hover:text-gold-500 transition-colors"
+                >
+                  {content[language].navbar.home}
+                </Link>
+                <Link
+                  href="#services"
+                  className="hover:text-gold-500 transition-colors"
+                >
+                  {content[language].navbar.services}
+                </Link>
+                <Link
+                  href="#testimonials"
+                  className="hover:text-gold-500 transition-colors"
+                >
+                  {content[language].navbar.testimonials}
+                </Link>
+                <Link
+                  href="#about"
+                  className="hover:text-gold-500 transition-colors"
+                >
+                  {content[language].navbar.about}
+                </Link>
+                <Link
+                  href="#contact"
+                  className="hover:text-gold-500 transition-colors"
+                >
+                  {content[language].navbar.contact}
+                </Link>
+              </div>
+            </motion.nav>
+          )}
+        </AnimatePresence>
+      </motion.header>
       {/* Add this section to your JSX */}
 
       <motion.section
@@ -511,14 +544,13 @@ export default function NewHome() {
           {/* Left Column - Text Content */}
           <div className="space-y-8">
             <h2 className="text-4xl font-bold">
-            {content[language].propertyTransactionTitle}
+              {content[language].propertyTransactionTitle}
             </h2>
             <p className="text-lg">
-            {content[language].propertyTransactionDesc}
+              {content[language].propertyTransactionDesc}
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-           
               <div>
                 <h3 className="text-xl font-semibold mb-2">
                   {content[language].legalAssistanceTitle}
@@ -615,7 +647,7 @@ export default function NewHome() {
         </motion.div>
 
         {/* Updated About Section */}
-        <section id="about"  className="py-20 px-6 max-w-6xl mx-auto">
+        <section id="about" className="py-20 px-6 max-w-6xl mx-auto">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-3xl font-semibold mb-6">
