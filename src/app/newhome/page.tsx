@@ -150,12 +150,12 @@ export default function NewHome() {
       heroTitle:
         "Your Property, Our Expertise  Seamless Management & Investment Solutions",
       heroSubtitle:
-        "Discover Kelainvest, your trusted partner in real estate management and investment. We make property ownership stress-free and profitable.",
+        "Discover Kela Invest, your trusted partner in real estate management and investment. We make property ownership stress-free and profitable.",
       heroCTA: "Get Started",
       aboutTitle:
-        "Discover Kelainvest: Your Partner in Real Estate Excellence and Investment.",
+        "Discover Kela Invest: Your Partner in Real Estate Excellence and Investment.",
       aboutText:
-        "Kelainvest provides top-tier real estate management services, ensuring maximum returns and hassle-free property ownership.",
+        "Kela Invest provides top-tier real estate management services, ensuring maximum returns and hassle-free property ownership.",
       servicesTitle:
         "Our Exclusive Services for Unparalleled Real Estate Management.",
       service1: "Effortless property management for optimal returns.",
@@ -167,7 +167,7 @@ export default function NewHome() {
       propertyManagementTitle:
         "Discover our property management services for complete peace of mind.",
       propertyManagementDesc:
-        "At Kelainvest, we handle all aspects of property management. Our experienced team ensures a worry-free experience for both property owners and tenants.",
+        "At Kela Invest, we handle all aspects of property management. Our experienced team ensures a worry-free experience for both property owners and tenants.",
       tenantSearchTitle: "Tenant Search",
       tenantSearchDesc:
         "We find the best tenants for your property, ensuring reliable income.",
@@ -208,12 +208,12 @@ export default function NewHome() {
       heroTitle:
         "Votre Propriété, Notre Expertise  Solutions Élégantes de Gestion & Investissement",
       heroSubtitle:
-        "Découvrez Kelainvest, votre partenaire de confiance en gestion immobilière et investissement. Nous simplifions la gestion de vos biens tout en maximisant leur rentabilité.",
+        "Découvrez Kela Invest, votre partenaire de confiance en gestion immobilière et investissement. Nous simplifions la gestion de vos biens tout en maximisant leur rentabilité.",
       heroCTA: "Commencer",
       aboutTitle:
-        "Découvrez Kelainvest : Votre Partenaire en Excellence Immobilière et Investissement.",
+        "Découvrez Kela Invest : Votre Partenaire en Excellence Immobilière et Investissement.",
       aboutText:
-        "Kelainvest offre des services de gestion immobilière haut de gamme, garantissant des rendements optimaux et une gestion sans tracas.",
+        "Kela Invest offre des services de gestion immobilière haut de gamme, garantissant des rendements optimaux et une gestion sans tracas.",
       servicesTitle:
         "Nos services exclusifs pour une gestion immobilière sans égal.",
       service1: "Gestion locative simplifiée pour un rendement optimal.",
@@ -226,7 +226,7 @@ export default function NewHome() {
       propertyManagementTitle:
         "Découvrez nos services de gestion immobilière pour une tranquillité d'esprit totale.",
       propertyManagementDesc:
-        "Chez Kelainvest, nous nous occupons de tous les aspects de la gestion immobilière. Notre équipe expérimentée garantit une expérience sans souci pour les propriétaires et les locataires.",
+        "Chez Kela Invest, nous nous occupons de tous les aspects de la gestion immobilière. Notre équipe expérimentée garantit une expérience sans souci pour les propriétaires et les locataires.",
       tenantSearchTitle: "Recherche de locataires",
       tenantSearchDesc:
         "Nous trouvons les meilleurs locataires pour votre propriété, assurant des revenus fiables.",
@@ -244,7 +244,7 @@ export default function NewHome() {
       fondateur: {
         titre: "Fondateur",
         description:
-          "Investir en République Démocratique du Congo a toujours été un objectif et un rêve pour beaucoup de Congolais issus de la diaspora et ceux vivant présents au pays, en revanche, plusieurs maux rongent généralement les ambitions et découragent systématiquement. Afin de remédier à cette problématique, nous avons décidé de vous venir en aide en mettant à votre disposition notre expertise et expérience de plusieurs années dans les plus grandes banques et agences immobilières Françaises.",
+          "Investir en République Démocratique du Congo a toujours été un objectif et un rêve pour beaucoup de Congolais issus de la diaspora et ceux vivant au pays, en revanche, plusieurs maux rongent généralement les ambitions et découragent systématiquement. Afin de remédier à cette problématique, nous avons décidé de vous venir en aide en mettant à votre disposition notre expertise et expérience de plusieurs années dans les plus grandes banques et agences immobilières Françaises.",
       },
       propertyTransactionTitle: "Achat et Vente de Bien Immobilier",
       propertyTransactionDesc:
@@ -741,7 +741,7 @@ export default function NewHome() {
 
       <footer className="bg-gray-900 text-white text-center py-6">
         <p>
-          &copy; {new Date().getFullYear()} Kelainvest. All rights reserved.
+          &copy; {new Date().getFullYear()} Kela Invest. All rights reserved.
         </p>
       </footer>
     </div>
