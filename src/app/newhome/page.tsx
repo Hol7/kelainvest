@@ -6,6 +6,14 @@ import Link from "next/link";
 import Image from "next/image";
 import { Montserrat } from "next/font/google";
 
+import maintenanceImage from "@/../../public/images/kalunderconstruction.png";
+import agent from "@/../../public/images/front-view-man-working-as-real-estate-agent.jpg";
+import businesswoman from "@/../../public/images/portrait-elegant-professional-businesswoman.jpg";
+import hall from "@/../../public/images/three-diverse-business-partners-meeting-office-hall.jpg";
+import cafe from "@/../../public/images/two-african-businessman-sitting-outside-cafe.jpg";
+import patrick from "@/../../public/images/patrick.jpeg"
+
+
 const montserrat = Montserrat({ subsets: ["latin"] });
 
 type Language = "en" | "fr";
@@ -122,7 +130,7 @@ export default function NewHome() {
   return (
     <div className={`${montserrat.className} bg-gray-100 text-gray-900`}>
       {/* Updated Header with Navigation */}
-      <header className="bg-gray-900 text-white py-6 px-8 fixed w-full z-50">
+      <header className="bg-gray-900 font-bold text-white py-6 px-8 fixed w-full z-50">
         <div className="max-w-6xl mx-auto flex justify-between items-center">
           <motion.h1
             initial={{ opacity: 0, x: -20 }}
@@ -158,13 +166,14 @@ export default function NewHome() {
             >
               À Propos
             </Link>
-            <button
+         
+          </nav>
+          <button
               className="px-4 py-2 border border-gold-500 rounded-lg hover:bg-gold-500 transition-all"
               onClick={() => setLanguage(language === "en" ? "fr" : "en")}
             >
               {language === "en" ? "Français" : "English"}
             </button>
-          </nav>
 
           {/* Mobile Menu Button */}
           <button
@@ -217,13 +226,57 @@ export default function NewHome() {
           )}
         </AnimatePresence>
       </header>
+         {/* Add this section to your JSX */}
+         <motion.section 
+           initial={{ opacity: 0 }}
+           animate={{ opacity: 1 }}
+         className="py-20 px-6  mx-auto">
+        <div className="grid md:grid-cols-2 gap-12  items-center">
+        <div className="relative h-[600px]">
+            <Image
+              src={cafe}
+              alt="Property Management Services"
+              fill
+              className="object-cover rounded-lg"
+            />
+          </div>
+          {/* Left Column - Text Content */}
+          <div className="space-y-8">
+            <h2 className="text-4xl font-bold">
+              {content[language].propertyManagementTitle}
+            </h2>
+            <p className="text-lg">
+              {content[language].propertyManagementDesc}
+            </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div>
+                <h3 className="text-xl font-semibold mb-3">
+                  {content[language].tenantSearchTitle}
+                </h3>
+                <p>{content[language].tenantSearchDesc}</p>
+              </div>
+              <div>
+                <h3 className="text-xl font-semibold mb-3">
+                  {content[language].rentCollectionTitle}
+                </h3>
+                <p>{content[language].rentCollectionDesc}</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column - Image */}
+        
+        </div>
+      </motion.section>
+
       <motion.section
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         className="h-screen flex items-center justify-center text-center relative"
         style={{
           backgroundImage:
-            "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(/luxury-property.jpg)",
+            `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${hall.src})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
@@ -260,26 +313,8 @@ export default function NewHome() {
         <p className="text-lg text-center mb-8">{content[language].aboutText}</p>
       </section> */}
 
-      {/* Updated About Section */}
-      <section className="py-20 px-6 max-w-6xl mx-auto">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div>
-            <h2 className="text-3xl font-semibold mb-6">
-              {content[language].aboutTitle}
-            </h2>
-            <p className="text-lg">{content[language].aboutText}</p>
-          </div>
-          <div className="relative h-[400px]">
-            <Image
-              src="/about-image.jpg"
-              alt="About Kelainvest"
-              fill
-              className="object-cover rounded-lg"
-            />
-          </div>
-        </div>
-      </section>
-      <section className="py-20 px-6 max-w-6xl mx-auto">
+   {/* service */}
+   <section className="py-20 px-6 max-w-6xl mx-auto">
         <h2 className="text-3xl font-semibold text-center mb-12">
           {content[language].servicesTitle}
         </h2>
@@ -324,9 +359,19 @@ export default function NewHome() {
         </div>
       </section>
 
+
+
       {/* Add this section to your JSX */}
-      <section className="py-20 px-6 max-w-6xl mx-auto">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
+      <section className="py-20 px-6  mx-auto">
+        <div className="grid md:grid-cols-2 gap-12  items-center">
+        <div className="relative h-[600px]">
+            <Image
+              src={cafe}
+              alt="Property Management Services"
+              fill
+              className="object-cover rounded-lg"
+            />
+          </div>
           {/* Left Column - Text Content */}
           <div className="space-y-8">
             <h2 className="text-4xl font-bold">
@@ -353,16 +398,32 @@ export default function NewHome() {
           </div>
 
           {/* Right Column - Image */}
-          <div className="relative h-[600px]">
+        
+        </div>
+      </section>
+
+      {/* Updated About Section */}
+      <section className="py-20 px-6 max-w-6xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div>
+            <h2 className="text-3xl font-semibold mb-6">
+              {content[language].aboutTitle}
+            </h2>
+            <p className="text-lg">{content[language].aboutText}</p>
+          </div>
+          <div className="relative h-[400px]">
             <Image
-              src="/property-management.jpg"
-              alt="Property Management Services"
+              src={patrick}
+              alt="About Kelainvest"
               fill
               className="object-cover rounded-lg"
             />
           </div>
         </div>
       </section>
+
+
+   
 
       {/* Updated Testimonials Section */}
       <motion.section
