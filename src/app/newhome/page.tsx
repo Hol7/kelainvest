@@ -6,10 +6,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { Montserrat } from "next/font/google";
 
-import maintenanceImage from "@/../../public/images/kalunderconstruction.png";
-import agent from "@/../../public/images/front-view-man-working-as-real-estate-agent.jpg";
-import businesswoman from "@/../../public/images/portrait-elegant-professional-businesswoman.jpg";
-import hall from "@/../../public/images/three-diverse-business-partners-meeting-office-hall.jpg";
+// import maintenanceImage from "@/../../public/images/kalunderconstruction.png";
+// import agent from "@/../../public/images/front-view-man-working-as-real-estate-agent.jpg";
+// import businesswoman from "@/../../public/images/portrait-elegant-professional-businesswoman.jpg";
+// import hall from "@/../../public/images/three-diverse-business-partners-meeting-office-hall.jpg";
 import cafe from "@/../../public/images/two-african-businessman-sitting-outside-cafe.jpg";
 import hero from "@/../../public/images/apartment-building-city-with-copy-space.jpg";
 import patrick from "@/../../public/images/patrick.jpeg"
@@ -20,6 +20,15 @@ import face from "@/../../public/images/faces/beautiful-african-young-woman-face
 import face1 from "@/../../public/images/faces/handsome-man-smiling-happy-face-portrait-close-up.jpg";
 import face2 from "@/../../public/images/faces/sleepy-mixed-race-man-portrait-deep-blue-background_633478-2106.jpg";
 import face3 from "@/../../public/images/faces/handsome-adult-male-posing_23-2148729713.jpg";
+
+// gallery
+
+import interior from "@/../../public/images/appartments/beautiful-summer-modern-home-interior-design.jpg"
+import architecture from "@/../../public/images/appartments/modern-apartment-architecture.jpg"
+import building from "@/../../public/images/appartments/modern-building-architecture.jpg"
+import style from "@/../../public/images/appartments/modern-style-house-exterior-with-terrace.jpg"
+import rural from "@/../../public/images/appartments/rural-house-with-stone-pathway.jpg"
+import spacious from "@/../../public/images/appartments/spacious-room-with-big-window.jpg"
 
 
 const montserrat = Montserrat({ subsets: ["latin"] });
@@ -477,7 +486,7 @@ export default function NewHome() {
       animate={{ opacity: 1 }}
       className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
     >
-      {[agent, businesswoman, hall, cafe].map((image, index) => (
+      {[interior, architecture, building,rural, spacious, style].map((image, index) => (
         <motion.div
           key={index}
           whileHover={{ scale: 1.05 }}
