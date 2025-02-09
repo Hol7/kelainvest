@@ -54,6 +54,10 @@ type Content = {
     tenantSearchDesc: string;
     rentCollectionTitle: string;
     rentCollectionDesc: string;
+    fondateur:{
+      titre: string,
+      description: string
+    };
     contactForm: {
       name: string;
       email: string;
@@ -128,6 +132,12 @@ export default function NewHome() {
         message: "Message",
         submit: "Send Message",
       },
+      fondateur:{
+        titre: "Founder",
+        description: "Investing in the Democratic Republic of Congo has always been a goal and a dream for many Congolese from the diaspora and present in the country. However, a number of ills generally gnaw at ambitions and discourage people to remedy this problem, we have decided to come to your aid by putting at your disposal our expertise of several years in the largest French banks and real estate agencies",
+      }
+
+,
     },
     fr: {
       heroTitle:
@@ -164,6 +174,10 @@ export default function NewHome() {
         phone: "Numéro de téléphone",
         message: "Message",
         submit: "Envoyer le message",
+      },
+      fondateur:{
+        titre:"Fondateur",
+        description:"Investir en République Démocratique du Congo a toujours été un objectif et un rêve pour beaucoup de congolais issus de la diaspora et présents au pays, en revanche, plusieurs maux rongent généralement les ambitions et découragent afin de remédier à cette problématique, nous avons décidé de vous venir en aide en mettant à votre disposition notre expertise de plusieurs années dans les plus grandes banques et agences immobilières Françaises."
       },
     },
   };
@@ -453,25 +467,7 @@ export default function NewHome() {
         </div>
       </section>
 
-      {/* Updated About Section */}
-      <section className="py-20 px-6 max-w-6xl mx-auto">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div>
-            <h2 className="text-3xl font-semibold mb-6">
-              {content[language].aboutTitle}
-            </h2>
-            <p className="text-lg">{content[language].aboutText}</p>
-          </div>
-          <div className="relative h-[400px]">
-            <Image
-              src={patrick}
-              alt="About Kelainvest"
-              fill
-              className="object-cover rounded-lg"
-            />
-          </div>
-        </div>
-      </section>
+
 
 
 
@@ -505,6 +501,7 @@ export default function NewHome() {
     </motion.div>
   </div>
 </section>
+
 
 
    
@@ -550,6 +547,29 @@ export default function NewHome() {
             </div>
           ))}
         </motion.div>
+
+
+              {/* Updated About Section */}
+      <section className="py-20 px-6 max-w-6xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div>
+            <h2 className="text-3xl font-semibold mb-6">
+              {content[language].fondateur.titre}
+            </h2>
+            <p className="text-lg">{content[language].fondateur.description}</p>
+          </div>
+          <div className="relative h-[400px]">
+            <Image
+              src={patrick}
+              alt="About Kelainvest"
+              fill
+              className="object-cover rounded-lg"
+            />
+          </div>
+        </div>
+      </section>
+
+
 
         {/* Contact Section */}
         <section className="py-20 px-6 max-w-6xl mx-auto">
@@ -608,6 +628,7 @@ export default function NewHome() {
           </div>
         </section>
       </motion.section>
+
       <footer className="bg-gray-900 text-white text-center py-6">
         <p>
           &copy; {new Date().getFullYear()} Kelainvest. All rights reserved.
