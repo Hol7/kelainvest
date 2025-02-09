@@ -699,7 +699,7 @@ export default function NewHome() {
                     href="mailto:hello@kelainvest.com"
                     className="hover:text-gold-500 underline"
                   >
-                    hello@kelainvest.com
+                    contact@kelainvest.com
                   </a>
                 </div>
               </div>
@@ -725,7 +725,7 @@ export default function NewHome() {
                 <div>
                   <h3 className="text-xl font-semibold">Bureau</h3>
                   <address className="not-italic">
-                    123 Sample St, Sydney NSW 2000 AU
+                  60 boulevard du 30 juin, immeuble MAYEMBA, 6e étage, C/ Gombe, Kinshasa, RD Congo
                   </address>
                 </div>
               </div>
