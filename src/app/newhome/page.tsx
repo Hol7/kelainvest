@@ -11,7 +11,15 @@ import agent from "@/../../public/images/front-view-man-working-as-real-estate-a
 import businesswoman from "@/../../public/images/portrait-elegant-professional-businesswoman.jpg";
 import hall from "@/../../public/images/three-diverse-business-partners-meeting-office-hall.jpg";
 import cafe from "@/../../public/images/two-african-businessman-sitting-outside-cafe.jpg";
+import hero from "@/../../public/images/apartment-building-city-with-copy-space.jpg";
 import patrick from "@/../../public/images/patrick.jpeg"
+import woman from "@/../../public/images/smiling-woman-writing-notes-tablet-digital-device_53876-111318.jpg"
+
+
+import face from "@/../../public/images/faces/beautiful-african-young-woman-face-portrait.jpg";
+import face1 from "@/../../public/images/faces/handsome-man-smiling-happy-face-portrait-close-up.jpg";
+import face2 from "@/../../public/images/faces/sleepy-mixed-race-man-portrait-deep-blue-background_633478-2106.jpg";
+import face3 from "@/../../public/images/faces/handsome-adult-male-posing_23-2148729713.jpg";
 
 
 const montserrat = Montserrat({ subsets: ["latin"] });
@@ -51,6 +59,30 @@ export default function NewHome() {
   const [language, setLanguage] = useState<Language>("en");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+
+  const testimonials = [
+    {
+      id:1,
+      image:face,
+      message:"Service exceptionnel et professionnalisme remarquable."
+    },
+    {
+      id:2,
+      image:face1,
+      message:"Service exceptionnel et professionnalisme remarquable."
+    },
+    {
+      id:3,
+      image:face2,
+      message:"Service exceptionnel et professionnalisme remarquable."
+    },
+    {
+      id:4,
+      image:face3,
+      message:"Service exceptionnel et professionnalisme remarquable."
+    },
+  ]
+
   const content: Content = {
     en: {
       heroTitle:
@@ -63,7 +95,7 @@ export default function NewHome() {
       aboutText:
         "Kelainvest provides top-tier real estate management services, ensuring maximum returns and hassle-free property ownership.",
       servicesTitle:
-        "Explore Our Exclusive Services for Unparalleled Real Estate Management.",
+        "Our Exclusive Services for Unparalleled Real Estate Management.",
       service1: "Effortless property management for optimal returns.",
       service2: "Strategic investments to grow your real estate portfolio.",
       service3: "Expert maintenance and renovation for premium properties.",
@@ -99,7 +131,7 @@ export default function NewHome() {
       aboutText:
         "Kelainvest offre des services de gestion immobilière haut de gamme, garantissant des rendements optimaux et une gestion sans tracas.",
       servicesTitle:
-        "Découvrez nos services exclusifs pour une gestion immobilière sans égal.",
+        "Nos services exclusifs pour une gestion immobilière sans égal.",
       service1: "Gestion locative simplifiée pour un rendement optimal.",
       service2:
         "Investissements stratégiques pour développer votre patrimoine immobilier.",
@@ -130,7 +162,7 @@ export default function NewHome() {
   return (
     <div className={`${montserrat.className} bg-gray-100 text-gray-900`}>
       {/* Updated Header with Navigation */}
-      <header className="bg-gray-900 font-bold text-white py-6 px-8 fixed w-full z-50">
+      <header className="bg-white font-bold text-black py-6 px-8 fixed w-full z-50">
         <div className="max-w-6xl mx-auto flex justify-between items-center">
           <motion.h1
             initial={{ opacity: 0, x: -20 }}
@@ -227,10 +259,107 @@ export default function NewHome() {
         </AnimatePresence>
       </header>
          {/* Add this section to your JSX */}
-         <motion.section 
+     
+
+      <motion.section
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className="h-screen flex items-center justify-center text-center relative"
+        style={{
+          backgroundImage:
+            `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${hero.src})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        <div className="max-w-4xl px-6">
+          <motion.h2
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.2 }}
+            className="md:text-5xl font-bold text-white mb-6"
+          >
+            {content[language].heroTitle}
+          </motion.h2>
+          <motion.p
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.4 }}
+            className="text-xl text-white mb-8"
+          >
+            {content[language].heroSubtitle}
+          </motion.p>
+          {/* <motion.button
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.6 }}
+            className="bg-gold-500 text-white px-8 py-4 text-lg font-semibold rounded-lg hover:bg-gold-600 transition-all"
+          >
+            {content[language].heroCTA}
+          </motion.button> */}
+        </div>
+      </motion.section>
+      {/* <section className="py-20 px-6 max-w-6xl mx-auto">
+        <h2 className="text-3xl font-semibold text-center mb-6">{content[language].aboutTitle}</h2>
+        <p className="text-lg text-center mb-8">{content[language].aboutText}</p>
+      </section> */}
+
+
+   {/* service */}
+   <section className="py-20 px-4 md:px-2 max-w-6xl mx-auto">
+        <h2 className="text-3xl font-semibold text-center mb-12">
+          {content[language].servicesTitle}
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+          <motion.div
+            whileHover={{ y: -10 }}
+            className="p-8 bg-white cursor-pointer shadow-xl rounded-lg flex flex-col items-center text-center"
+          >
+            <Icon
+              icon="mdi:home-outline"
+              style={{ color: '#FFD700' }}
+              className="text-5xl text-gold-500 mb-6"
+            />
+            <p className="text-lg">{content[language].service1}</p>
+          </motion.div>
+          <motion.div
+            whileHover={{ y: -10 }}
+            className="p-8 bg-white cursor-pointer shadow-xl rounded-lg flex flex-col items-center text-center"
+          >
+            <Icon
+              icon="mdi:office-building"
+              style={{ color: '#FFD700' }}
+              className="text-5xl text-gold-500 mb-6"
+            />
+            <p className="text-lg">{content[language].service2}</p>
+          </motion.div>
+          <motion.div
+            whileHover={{ y: -10 }}
+            className="p-8 bg-white cursor-pointer shadow-xl rounded-lg flex flex-col items-center text-center"
+          >
+            <Icon icon="mdi:tools" 
+              style={{ color: '#FFD700' }}
+            className="text-5xl text-gold-500 mb-6" />
+            <p className="text-lg">{content[language].service3}</p>
+          </motion.div>
+          <motion.div
+            whileHover={{ y: -10 }}
+            className="p-8 bg-white cursor-pointer shadow-xl rounded-lg flex flex-col items-center text-center"
+          >
+            <Icon
+              icon="mdi:pencil-ruler"
+              style={{ color: '#FFD700' }}
+              className="text-5xl text-gold-500 mb-6"
+            />
+            <p className="text-lg">{content[language].service4}</p>
+          </motion.div>
+        </div>
+      </section>
+
+        <motion.section 
            initial={{ opacity: 0 }}
            animate={{ opacity: 1 }}
-         className="py-20 px-6  mx-auto">
+         className="py-20 px-6 border bg-white mx-auto">
         <div className="grid md:grid-cols-2 gap-12  items-center">
         <div className="relative h-[600px]">
             <Image
@@ -270,108 +399,13 @@ export default function NewHome() {
         </div>
       </motion.section>
 
-      <motion.section
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        className="h-screen flex items-center justify-center text-center relative"
-        style={{
-          backgroundImage:
-            `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${hall.src})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
-        <div className="max-w-4xl px-6">
-          <motion.h2
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            className="text-5xl font-bold text-white mb-6"
-          >
-            {content[language].heroTitle}
-          </motion.h2>
-          <motion.p
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.4 }}
-            className="text-xl text-white mb-8"
-          >
-            {content[language].heroSubtitle}
-          </motion.p>
-          <motion.button
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.6 }}
-            className="bg-gold-500 text-white px-8 py-4 text-lg font-semibold rounded-lg hover:bg-gold-600 transition-all"
-          >
-            {content[language].heroCTA}
-          </motion.button>
-        </div>
-      </motion.section>
-      {/* <section className="py-20 px-6 max-w-6xl mx-auto">
-        <h2 className="text-3xl font-semibold text-center mb-6">{content[language].aboutTitle}</h2>
-        <p className="text-lg text-center mb-8">{content[language].aboutText}</p>
-      </section> */}
-
-   {/* service */}
-   <section className="py-20 px-6 max-w-6xl mx-auto">
-        <h2 className="text-3xl font-semibold text-center mb-12">
-          {content[language].servicesTitle}
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <motion.div
-            whileHover={{ y: -10 }}
-            className="p-8 bg-white shadow-xl rounded-lg flex flex-col items-center text-center"
-          >
-            <Icon
-              icon="mdi:home-outline"
-              className="text-5xl text-gold-500 mb-6"
-            />
-            <p className="text-lg">{content[language].service1}</p>
-          </motion.div>
-          <motion.div
-            whileHover={{ y: -10 }}
-            className="p-8 bg-white shadow-xl rounded-lg flex flex-col items-center text-center"
-          >
-            <Icon
-              icon="mdi:office-building"
-              className="text-5xl text-gold-500 mb-6"
-            />
-            <p className="text-lg">{content[language].service2}</p>
-          </motion.div>
-          <motion.div
-            whileHover={{ y: -10 }}
-            className="p-8 bg-white shadow-xl rounded-lg flex flex-col items-center text-center"
-          >
-            <Icon icon="mdi:tools" className="text-5xl text-gold-500 mb-6" />
-            <p className="text-lg">{content[language].service3}</p>
-          </motion.div>
-          <motion.div
-            whileHover={{ y: -10 }}
-            className="p-8 bg-white shadow-xl rounded-lg flex flex-col items-center text-center"
-          >
-            <Icon
-              icon="mdi:pencil-ruler"
-              className="text-5xl text-gold-500 mb-6"
-            />
-            <p className="text-lg">{content[language].service4}</p>
-          </motion.div>
-        </div>
-      </section>
 
 
 
       {/* Add this section to your JSX */}
-      <section className="py-20 px-6  mx-auto">
+      <section className="py-20 px-6 max-w-6xl  mx-auto">
         <div className="grid md:grid-cols-2 gap-12  items-center">
-        <div className="relative h-[600px]">
-            <Image
-              src={cafe}
-              alt="Property Management Services"
-              fill
-              className="object-cover rounded-lg"
-            />
-          </div>
+        
           {/* Left Column - Text Content */}
           <div className="space-y-8">
             <h2 className="text-4xl font-bold">
@@ -398,6 +432,14 @@ export default function NewHome() {
           </div>
 
           {/* Right Column - Image */}
+          <div className="relative h-[600px]">
+            <Image
+              src={woman}
+              alt="Property Management Services"
+              fill
+              className="object-cover rounded-lg"
+            />
+          </div>
         
         </div>
       </section>
@@ -423,13 +465,46 @@ export default function NewHome() {
       </section>
 
 
+
+      {/* New Gallery Section */}
+<section className="py-20 px-4 bg-gray-50">
+  <div className="max-w-6xl mx-auto">
+    <h2 className="text-4xl font-bold text-center mb-12">
+      Notre Galerie
+    </h2>
+    <motion.div 
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+    >
+      {[agent, businesswoman, hall, cafe].map((image, index) => (
+        <motion.div
+          key={index}
+          whileHover={{ scale: 1.05 }}
+          className="relative h-[300px] overflow-hidden rounded-lg shadow-lg"
+        >
+          <Image
+            src={image}
+            alt={`Gallery image ${index + 1}`}
+            fill
+            className="object-cover transition-transform hover:scale-110"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          />
+          <div className="absolute inset-0 bg-black bg-opacity-20 hover:bg-opacity-30 transition-all" />
+        </motion.div>
+      ))}
+    </motion.div>
+  </div>
+</section>
+
+
    
 
       {/* Updated Testimonials Section */}
       <motion.section
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="py-20 px-6 max-w-6xl mx-auto"
+        className="py-20 px-2 mx-auto"
       >
         <h2 className="text-3xl font-semibold text-center mb-12">
           {content[language].testimonialsTitle}
@@ -444,27 +519,24 @@ export default function NewHome() {
           }}
           className="flex items-center space-x-8"
         >
-          {[1, 2, 3].map((index) => (
+          {testimonials.map((elememnt) => (
             <div
-              key={index}
+              key={elememnt.id}
               className="flex items-center space-x-4 bg-white p-6 rounded-lg shadow-lg min-w-[300px]"
             >
               <Image
-                src={`/avatar${index}.jpg`}
-                alt={`Client ${index}`}
-                width={60}
-                height={60}
+                src={elememnt.image}
+                alt={`Client ${elememnt.id}`}
+                width={50}
+                height={50}
                 className="rounded-full"
               />
               <div>
                 <p className="text-lg italic">
-                  `Service exceptionnel et professionnalisme remarquable.`
+                  {elememnt.message}
                 </p>
-                <p>
-
-                  This parragraph will be removed
-                </p>
-                <p className="text-gold-500 mt-2">Client {index}</p>
+               
+                {/* <p className="text-gold-500 mt-2">Client {elememnt.id}</p> */}
               </div>
             </div>
           ))}
