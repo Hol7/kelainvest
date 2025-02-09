@@ -60,6 +60,7 @@ type Content = {
     legalAssistanceTitle: string;
     legalAssistanceDesc: string;
     gallery: string;
+    slogan:string;
     fondateur: {
       titre: string;
       description: string;
@@ -145,6 +146,7 @@ export default function NewHome() {
         about: "About",
         contact: "Contact",
       },
+      slogan:"With us, the security of your property investments is guaranteed ",
       heroTitle:
         "Your Property, Our Expertise  Seamless Management & Investment Solutions",
       heroSubtitle:
@@ -201,6 +203,8 @@ export default function NewHome() {
         about: "À Propos",
         contact: "Contact",
       },
+      slogan:"Avec nous, la sécurité de vos investissements immobiliers est assurée ",
+      
       heroTitle:
         "Votre Propriété, Notre Expertise  Solutions Élégantes de Gestion & Investissement",
       heroSubtitle:
@@ -383,7 +387,7 @@ export default function NewHome() {
             transition={{ delay: 0.2 }}
             className="md:text-5xl font-bold text-white mb-6"
           >
-            {content[language].heroTitle}
+            {content[language].slogan}
           </motion.h2>
           <motion.p
             initial={{ y: 20, opacity: 0 }}
