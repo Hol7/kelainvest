@@ -54,6 +54,10 @@ type Content = {
     tenantSearchDesc: string;
     rentCollectionTitle: string;
     rentCollectionDesc: string;
+    propertyTransactionTitle: string;
+    propertyTransactionDesc: string;
+    legalAssistanceTitle: string;
+    legalAssistanceDesc: string;
     fondateur:{
       titre: string,
       description: string
@@ -64,6 +68,14 @@ type Content = {
       phone: string;
       message: string;
       submit: string;
+    };
+
+    navbar: {
+      home: string;
+      services: string;
+      testimonials: string;
+      about: string;
+      contact: string;
     };
   };
 };
@@ -98,8 +110,15 @@ export default function NewHome() {
 
   const content: Content = {
     en: {
+      navbar: {
+        home: "Home",
+        services: "Services",
+        testimonials: "Testimonials",
+        about: "About",
+        contact: "Contact"
+      },
       heroTitle:
-        "Your Property, Our Expertise – Seamless Management & Investment Solutions",
+        "Your Property, Our Expertise  Seamless Management & Investment Solutions",
       heroSubtitle:
         "Discover Kelainvest, your trusted partner in real estate management and investment. We make property ownership stress-free and profitable.",
       heroCTA: "Get Started",
@@ -135,13 +154,25 @@ export default function NewHome() {
       fondateur:{
         titre: "Founder",
         description: "Investing in the Democratic Republic of Congo has always been a goal and a dream for many Congolese from the diaspora and present in the country. However, a number of ills generally gnaw at ambitions and discourage people to remedy this problem, we have decided to come to your aid by putting at your disposal our expertise of several years in the largest French banks and real estate agencies",
-      }
+      },
+
+      propertyTransactionTitle: "Real Estate Purchase & Sale",
+      propertyTransactionDesc: "Document and owner authentication, land prospecting and study, valuation, feasibility and profitability analysis...",
+      legalAssistanceTitle: "Legal Assistance",
+      legalAssistanceDesc: "Legal support from our lawyers before, during and after any dispute."
 
 ,
     },
     fr: {
+      navbar: {
+        home: "Accueil",
+        services: "Services",
+        testimonials: "Témoignages",
+        about: "À Propos",
+        contact: "Contact"
+      },
       heroTitle:
-        "Votre Propriété, Notre Expertise – Solutions Élégantes de Gestion & Investissement",
+        "Votre Propriété, Notre Expertise  Solutions Élégantes de Gestion & Investissement",
       heroSubtitle:
         "Découvrez Kelainvest, votre partenaire de confiance en gestion immobilière et investissement. Nous simplifions la gestion de vos biens tout en maximisant leur rentabilité.",
       heroCTA: "Commencer",
@@ -179,118 +210,132 @@ export default function NewHome() {
         titre:"Fondateur",
         description:"Investir en République Démocratique du Congo a toujours été un objectif et un rêve pour beaucoup de congolais issus de la diaspora et présents au pays, en revanche, plusieurs maux rongent généralement les ambitions et découragent afin de remédier à cette problématique, nous avons décidé de vous venir en aide en mettant à votre disposition notre expertise de plusieurs années dans les plus grandes banques et agences immobilières Françaises."
       },
+      propertyTransactionTitle: "Achat et Vente de Bien Immobilier",
+      propertyTransactionDesc: "Authentification des documents et propriétaires, prospection et étude du terrain, valorisation, analyse de faisabilité et rentabilité...",
+      legalAssistanceTitle: "Assistance Juridique",
+      legalAssistanceDesc: "Accompagnement juridique par nos juristes avant, pendant et après chaque litige.",
     },
   };
 
   return (
     <div className={`${montserrat.className} bg-gray-100 text-gray-900`}>
       {/* Updated Header with Navigation */}
-      <header className="bg-white font-bold text-black py-6 px-8 fixed w-full z-50">
-        <div className="max-w-6xl mx-auto flex justify-between items-center">
-          <motion.h1
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="text-3xl font-bold text-gold-500"
-          >
-            Kelainvest
-          </motion.h1>
-
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
-            <Link
-              href="#accueil"
-              className="hover:text-gold-500 transition-colors"
-            >
-              Accueil
-            </Link>
-            <Link
-              href="#services"
-              className="hover:text-gold-500 transition-colors"
-            >
-              Services
-            </Link>
-            <Link
-              href="#temoignages"
-              className="hover:text-gold-500 transition-colors"
-            >
-              Témoignages
-            </Link>
-            <Link
-              href="#apropos"
-              className="hover:text-gold-500 transition-colors"
-            >
-              À Propos
-            </Link>
-         
-          </nav>
-          <button
-              className="px-4 py-2 border border-gold-500 rounded-lg hover:bg-gold-500 transition-all"
-              onClick={() => setLanguage(language === "en" ? "fr" : "en")}
-            >
-              {language === "en" ? "Français" : "English"}
-            </button>
-
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden text-gold-500"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            <Icon
-              icon={isMenuOpen ? "mdi:close" : "mdi:menu"}
-              className="text-2xl"
-            />
-          </button>
-        </div>
-
-        {/* Mobile Navigation */}
-        <AnimatePresence>
-          {isMenuOpen && (
-            <motion.nav
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              className="md:hidden absolute top-full left-0 w-full bg-gray-900 py-4"
-            >
-              <div className="flex flex-col items-center space-y-4">
-                <Link
-                  href="#accueil"
-                  className="hover:text-gold-500 transition-colors"
-                >
-                  Accueil
-                </Link>
-                <Link
-                  href="#services"
-                  className="hover:text-gold-500 transition-colors"
-                >
-                  Services
-                </Link>
-                <Link
-                  href="#temoignages"
-                  className="hover:text-gold-500 transition-colors"
-                >
-                  Témoignages
-                </Link>
-                <Link
-                  href="#apropos"
-                  className="hover:text-gold-500 transition-colors"
-                >
-                  À Propos
-                </Link>
-              </div>
-            </motion.nav>
-          )}
-        </AnimatePresence>
-      </header>
-         {/* Add this section to your JSX */}
      
+<header className="bg-white font-bold text-black py-6 px-8 fixed w-full z-50">
+  <div className="max-w-6xl mx-auto flex justify-between items-center">
+    <motion.h1
+      initial={{ opacity: 0, x: -20 }}
+      animate={{ opacity: 1, x: 0 }}
+      className="text-3xl font-bold text-gold-500"
+    >
+      Kelainvest
+    </motion.h1>
+
+    {/* Desktop Navigation */}
+    <nav className="hidden md:flex items-center space-x-8">
+      <Link
+        href="#home"
+        className="hover:text-gold-500 transition-colors"
+      >
+        {content[language].navbar.home}
+      </Link>
+      <Link
+        href="#services"
+        className="hover:text-gold-500 transition-colors"
+      >
+        {content[language].navbar.services}
+      </Link>
+      <Link
+        href="#testimonials"
+        className="hover:text-gold-500 transition-colors"
+      >
+        {content[language].navbar.testimonials}
+      </Link>
+      <Link
+        href="#about"
+        className="hover:text-gold-500 transition-colors"
+      >
+        {content[language].navbar.about}
+      </Link>
+      <Link
+        href="#contact"
+        className="hover:text-gold-500 transition-colors"
+      >
+        {content[language].navbar.contact}
+      </Link>
+    </nav>
+
+    {/* Language Toggle Button */}
+    <button
+      className="px-4 py-2 border border-gold-500 rounded-lg hover:bg-gold-500 transition-all"
+      onClick={() => setLanguage(language === "en" ? "fr" : "en")}
+    >
+      {language === "en" ? "Fr" : "En"}
+    </button>
+
+    {/* Mobile Menu Button */}
+    <button
+      className="md:hidden text-gold-500"
+      onClick={() => setIsMenuOpen(!isMenuOpen)}
+    >
+      <Icon icon={isMenuOpen ? "mdi:close" : "mdi:menu"} className="text-2xl" />
+    </button>
+  </div>
+
+  {/* Mobile Navigation */}
+  <AnimatePresence>
+    {isMenuOpen && (
+      <motion.nav
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -20 }}
+        className="md:hidden absolute top-full left-0 w-full bg-white py-4"
+      >
+        <div className="flex flex-col items-center space-y-4">
+          <Link
+            href="#home"
+            className="hover:text-gold-500 transition-colors"
+          >
+            {content[language].navbar.home}
+          </Link>
+          <Link
+            href="#services"
+            className="hover:text-gold-500 transition-colors"
+          >
+            {content[language].navbar.services}
+          </Link>
+          <Link
+            href="#testimonials"
+            className="hover:text-gold-500 transition-colors"
+          >
+            {content[language].navbar.testimonials}
+          </Link>
+          <Link
+            href="#about"
+            className="hover:text-gold-500 transition-colors"
+          >
+            {content[language].navbar.about}
+          </Link>
+          <Link
+            href="#contact"
+            className="hover:text-gold-500 transition-colors"
+          >
+            {content[language].navbar.contact}
+          </Link>
+        </div>
+      </motion.nav>
+    )}
+  </AnimatePresence>
+</header>
+      {/* Add this section to your JSX */}
 
       <motion.section
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
+        id="home"
         className="h-screen flex items-center justify-center text-center relative"
         style={{
-          backgroundImage:
-            `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${hero.src})`,
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${hero.src})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
@@ -327,20 +372,19 @@ export default function NewHome() {
         <p className="text-lg text-center mb-8">{content[language].aboutText}</p>
       </section> */}
 
-
-   {/* service */}
-   <section className="py-20 px-4 md:px-2 max-w-6xl mx-auto">
+      {/* service */}
+      <section id="services" className="py-20 px-4 md:px-2 max-w-6xl mx-auto">
         <h2 className="text-3xl font-semibold text-center mb-12">
           {content[language].servicesTitle}
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1   md:grid-cols-3 gap-8">
           <motion.div
             whileHover={{ y: -10 }}
             className="p-8 bg-white cursor-pointer shadow-xl rounded-lg flex flex-col items-center text-center"
           >
             <Icon
               icon="mdi:home-outline"
-              style={{ color: '#FFD700' }}
+              style={{ color: "#FFD700" }}
               className="text-5xl text-gold-500 mb-6"
             />
             <p className="text-lg">{content[language].service1}</p>
@@ -351,7 +395,7 @@ export default function NewHome() {
           >
             <Icon
               icon="mdi:office-building"
-              style={{ color: '#FFD700' }}
+              style={{ color: "#FFD700" }}
               className="text-5xl text-gold-500 mb-6"
             />
             <p className="text-lg">{content[language].service2}</p>
@@ -360,9 +404,11 @@ export default function NewHome() {
             whileHover={{ y: -10 }}
             className="p-8 bg-white cursor-pointer shadow-xl rounded-lg flex flex-col items-center text-center"
           >
-            <Icon icon="mdi:tools" 
-              style={{ color: '#FFD700' }}
-            className="text-5xl text-gold-500 mb-6" />
+            <Icon
+              icon="mdi:tools"
+              style={{ color: "#FFD700" }}
+              className="text-5xl text-gold-500 mb-6"
+            />
             <p className="text-lg">{content[language].service3}</p>
           </motion.div>
           <motion.div
@@ -371,20 +417,55 @@ export default function NewHome() {
           >
             <Icon
               icon="mdi:pencil-ruler"
-              style={{ color: '#FFD700' }}
+              style={{ color: "#FFD700" }}
               className="text-5xl text-gold-500 mb-6"
             />
             <p className="text-lg">{content[language].service4}</p>
           </motion.div>
+
+          {/* New Property Transaction Service */}
+          <motion.div
+            whileHover={{ y: -10 }}
+            className="p-8 bg-white cursor-pointer shadow-xl rounded-lg flex flex-col items-center text-center"
+          >
+            <Icon
+              icon="mdi:handshake"
+              className="text-5xl mb-6"
+              style={{ color: "#FFD700" }}
+            />
+            {/* <h3 className="font-semibold mb-2">
+        {content[language].propertyTransactionTitle}
+      </h3> */}
+            <p className="text-sm">
+              {content[language].propertyTransactionDesc}
+            </p>
+          </motion.div>
+
+          {/* New Legal Assistance Service */}
+          <motion.div
+            whileHover={{ y: -10 }}
+            className="p-8 bg-white cursor-pointer shadow-xl rounded-lg flex flex-col items-center text-center"
+          >
+            <Icon
+              icon="mdi:scale-balance"
+              className="text-5xl mb-6"
+              style={{ color: "#FFD700" }}
+            />
+            <h3 className="font-semibold mb-2">
+              {content[language].legalAssistanceTitle}
+            </h3>
+            <p className="text-sm">{content[language].legalAssistanceDesc}</p>
+          </motion.div>
         </div>
       </section>
 
-        <motion.section 
-           initial={{ opacity: 0 }}
-           animate={{ opacity: 1 }}
-         className="py-20 px-6 border bg-white mx-auto">
+      <motion.section
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className="py-20 px-6 border bg-white mx-auto"
+      >
         <div className="grid md:grid-cols-2 gap-12  items-center">
-        <div className="relative h-[600px]">
+          <div className="relative h-[600px]">
             <Image
               src={cafe}
               alt="Property Management Services"
@@ -418,38 +499,28 @@ export default function NewHome() {
           </div>
 
           {/* Right Column - Image */}
-        
         </div>
       </motion.section>
-
-
-
 
       {/* Add this section to your JSX */}
       <section className="py-20 px-6 max-w-6xl  mx-auto">
         <div className="grid md:grid-cols-2 gap-12  items-center">
-        
           {/* Left Column - Text Content */}
           <div className="space-y-8">
             <h2 className="text-4xl font-bold">
-              {content[language].propertyManagementTitle}
+            {content[language].propertyTransactionTitle}
             </h2>
             <p className="text-lg">
-              {content[language].propertyManagementDesc}
+            {content[language].propertyTransactionDesc}
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+           
               <div>
-                <h3 className="text-xl font-semibold mb-3">
-                  {content[language].tenantSearchTitle}
+                <h3 className="text-xl font-semibold mb-2">
+                  {content[language].legalAssistanceTitle}
                 </h3>
-                <p>{content[language].tenantSearchDesc}</p>
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold mb-3">
-                  {content[language].rentCollectionTitle}
-                </h3>
-                <p>{content[language].rentCollectionDesc}</p>
+                <p>{content[language].legalAssistanceDesc}</p>
               </div>
             </div>
           </div>
@@ -463,53 +534,47 @@ export default function NewHome() {
               className="object-cover rounded-lg"
             />
           </div>
-        
         </div>
       </section>
 
-
-
-
-
       {/* New Gallery Section */}
-<section className="py-20 px-4 bg-gray-50">
-  <div className="max-w-6xl mx-auto">
-    <h2 className="text-4xl font-bold text-center mb-12">
-      Notre Galerie
-    </h2>
-    <motion.div 
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-    >
-      {[interior, architecture, building,rural, spacious, style].map((image, index) => (
-        <motion.div
-          key={index}
-          whileHover={{ scale: 1.05 }}
-          className="relative h-[300px] overflow-hidden rounded-lg shadow-lg"
-        >
-          <Image
-            src={image}
-            alt={`Gallery image ${index + 1}`}
-            fill
-            className="object-cover transition-transform hover:scale-110"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          />
-          <div className="absolute inset-0 bg-black bg-opacity-20 hover:bg-opacity-30 transition-all" />
-        </motion.div>
-      ))}
-    </motion.div>
-  </div>
-</section>
-
-
-
-   
+      <section className="py-20 px-4 bg-gray-50">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-4xl font-bold text-center mb-12">
+            Notre Galerie
+          </h2>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          >
+            {[interior, architecture, building, rural, spacious, style].map(
+              (image, index) => (
+                <motion.div
+                  key={index}
+                  whileHover={{ scale: 1.05 }}
+                  className="relative h-[300px] overflow-hidden rounded-lg shadow-lg"
+                >
+                  <Image
+                    src={image}
+                    alt={`Gallery image ${index + 1}`}
+                    fill
+                    className="object-cover transition-transform hover:scale-110"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  />
+                  <div className="absolute inset-0 bg-black bg-opacity-20 hover:bg-opacity-30 transition-all" />
+                </motion.div>
+              )
+            )}
+          </motion.div>
+        </div>
+      </section>
 
       {/* Updated Testimonials Section */}
       <motion.section
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
+        id="testimonials"
         className="py-20 px-2 mx-auto"
       >
         <h2 className="text-3xl font-semibold text-center mb-12">
@@ -538,41 +603,38 @@ export default function NewHome() {
                 className="rounded-full"
               />
               <div>
-                <p className="text-lg italic">
-                  {elememnt.message}
-                </p>
-               
+                <p className="text-lg italic">{elememnt.message}</p>
+
                 {/* <p className="text-gold-500 mt-2">Client {elememnt.id}</p> */}
               </div>
             </div>
           ))}
         </motion.div>
 
-
-              {/* Updated About Section */}
-      <section className="py-20 px-6 max-w-6xl mx-auto">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div>
-            <h2 className="text-3xl font-semibold mb-6">
-              {content[language].fondateur.titre}
-            </h2>
-            <p className="text-lg">{content[language].fondateur.description}</p>
+        {/* Updated About Section */}
+        <section id="about"  className="py-20 px-6 max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 className="text-3xl font-semibold mb-6">
+                {content[language].fondateur.titre}
+              </h2>
+              <p className="text-lg">
+                {content[language].fondateur.description}
+              </p>
+            </div>
+            <div className="relative h-[400px]">
+              <Image
+                src={patrick}
+                alt="About Kelainvest"
+                fill
+                className="object-cover rounded-lg"
+              />
+            </div>
           </div>
-          <div className="relative h-[400px]">
-            <Image
-              src={patrick}
-              alt="About Kelainvest"
-              fill
-              className="object-cover rounded-lg"
-            />
-          </div>
-        </div>
-      </section>
-
-
+        </section>
 
         {/* Contact Section */}
-        <section className="py-20 px-6 max-w-6xl mx-auto">
+        <section id="contact" className="py-20 px-6 max-w-6xl mx-auto">
           <div className="grid md:grid-cols-2 gap-12">
             {/* Left Column */}
             <div>
