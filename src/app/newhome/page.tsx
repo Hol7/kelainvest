@@ -31,7 +31,7 @@ import building from "@/../../public/images/appartments/modern-building-architec
 import style from "@/../../public/images/appartments/modern-style-house-exterior-with-terrace.jpg";
 import rural from "@/../../public/images/appartments/rural-house-with-stone-pathway.jpg";
 import spacious from "@/../../public/images/appartments/spacious-room-with-big-window.jpg";
-
+import KELA from "@/../../public/images/KELA-LogoHorizonta.png";
 const montserrat = Montserrat({ subsets: ["latin"] });
 
 type Language = "en" | "fr";
@@ -277,7 +277,15 @@ export default function NewHome() {
             animate={{ opacity: 1, x: 0 }}
             className="text-3xl font-bold text-gold-500"
           >
-            Kelainvest
+            {/* KelainvestnKELA */}
+            <Image
+                src={KELA}
+                alt="About Kelainvest"
+                height={50}
+                width={120}
+                // fill
+                className="object-cover rounded-lg"
+              />
           </motion.h1>
 
           {/* Desktop Navigation */}
