@@ -720,8 +720,7 @@ export default function Home() {
                 <div>
                   <h3 className="text-xl font-semibold">Téléphone</h3>
                   <a
-                    href="tel:+243820230882
-"
+                    href="tel:+243820230882"
                     className="hover:text-gold-500 underline"
                   >
                     +243 8 20 23 08 82
