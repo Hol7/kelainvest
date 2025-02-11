@@ -84,7 +84,7 @@ type Content = {
 };
 
 export default function Home() {
-  const [language, setLanguage] = useState<Language>("en");
+  const [language, setLanguage] = useState<Language>("fr");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [shouldShowHeader, setShouldShowHeader] = useState(true);
