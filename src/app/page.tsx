@@ -720,10 +720,12 @@ export default function Home() {
                 <div>
                   <h3 className="text-xl font-semibold">Téléphone</h3>
                   <a
-                    href="tel:+1555000000"
+                    href="tel:+243820230882
+"
                     className="hover:text-gold-500 underline"
                   >
-                    +1 (555) 000-0000
+                    +243 8 20 23 08 82
+
                   </a>
                 </div>
               </div>
@@ -738,7 +740,7 @@ export default function Home() {
                 <div>
                   <h3 className="text-xl font-semibold">Bureau</h3>
                   <address className="not-italic">
-                  60 boulevard du 30 juin, immeuble MAYUMBA, 6e étage, C/ Gombe, Kinshasa, RD Congo
+                  60 boulevard du 30 juin, immeuble MAYUMBE, 6e étage, C/ Gombe, Kinshasa, RD Congo
                   </address>
                 </div>
               </div>
