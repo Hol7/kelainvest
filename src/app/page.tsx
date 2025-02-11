@@ -738,7 +738,7 @@ export default function Home() {
                 <div>
                   <h3 className="text-xl font-semibold">Bureau</h3>
                   <address className="not-italic">
-                  60 boulevard du 30 juin, immeuble MAYEMBA, 6e étage, C/ Gombe, Kinshasa, RD Congo
+                  60 boulevard du 30 juin, immeuble MAYUMBA, 6e étage, C/ Gombe, Kinshasa, RD Congo
                   </address>
                 </div>
               </div>
@@ -747,7 +747,7 @@ export default function Home() {
                 <Icon   height={30}
                 width={30} icon="mdi:alarm-clock" className="text-2xl text-gold-500" />
                 <div>
-                  <h3 className="text-xl font-semibold">Horaire</h3>
+                  <h3 className="text-xl font-semibold">Horaires</h3>
                   <a
                     href="tel:+1555000000"
                     className="hover:text-gold-500 "
