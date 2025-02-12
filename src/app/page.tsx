@@ -173,7 +173,7 @@ export default function Home() {
         "We find the best tenants for your property, ensuring reliable income.",
       rentCollectionTitle: "Rent Collection",
       rentCollectionDesc:
-        "We manage rent collection for you, simplifying your cash flow.",
+        "As your peace of mind and peace of mind are our ultimate objectives, Kela Invest takes care of collecting your rents in order to guarantee the stability of your cash flow on time. Provision of a monitoring table.",
       gallery: "Gallery",
       contactForm: {
         name: "Name",
@@ -232,7 +232,7 @@ export default function Home() {
         "Nous trouvons les meilleurs locataires pour votre propriété, assurant des revenus fiables.",
       rentCollectionTitle: "Collecte de loyer",
       rentCollectionDesc:
-        "Nous gérons la collecte des loyers pour vous, simplifiant ainsi votre flux de trésorerie.",
+        "Votre tranquillité et votre apaisement étant notre objectif ultime, Kela Invest s’occupe de la collecte de vos loyers afin de garantir la stabilité de vos flux de trésorerie en temps et en heures. Mise à disposition d’un tableau de suivi.",
       gallery: "Notre gallerie",
       contactForm: {
         name: "Nom",
