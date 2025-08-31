@@ -123,17 +123,17 @@ export default function Home() {
     {
       id: 2,
       image: face1,
-      message: "Service exceptionnel et professionnalisme remarquable.",
+      message: "Une prise en charge personnalisée avec un vrai souci du détail.",
     },
     {
       id: 3,
       image: face2,
-      message: "Service exceptionnel et professionnalisme remarquable.",
+      message: "Une équipe dévouée qui fait de la satisfaction client sa priorité.",
     },
     {
       id: 4,
       image: face3,
-      message: "Service exceptionnel et professionnalisme remarquable.",
+      message: "Des conseils avisés et un suivi rigoureux à chaque étape.",
     },
   ];
 
