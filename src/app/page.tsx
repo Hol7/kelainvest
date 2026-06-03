@@ -1,772 +1,694 @@
 "use client";
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence, } from "framer-motion";
 
-// import { useState,  } from "react";
-// import { motion, useScroll } from "framer-motion";
+import { useEffect, useMemo, useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
 import { Icon } from "@iconify/react";
+import Image, { type StaticImageData } from "next/image";
 import Link from "next/link";
-import Image from "next/image";
 import { Montserrat } from "next/font/google";
 
-// import maintenanceImage from "@/../../public/images/kalunderconstruction.png";
-// import agent from "@/../../public/images/front-view-man-working-as-real-estate-agent.jpg";
-// import businesswoman from "@/../../public/images/portrait-elegant-professional-businesswoman.jpg";
-// import hall from "@/../../public/images/three-diverse-business-partners-meeting-office-hall.jpg";
-import cafe from "@/../../public/images/two-african-businessman-sitting-outside-cafe.jpg";
-import hero from "@/../../public/images/apartment-building-city-with-copy-space.jpg";
-import patrick from "@/../../public/images/patrick.jpeg";
-import woman from "@/../../public/images/smiling-woman-writing-notes-tablet-digital-device_53876-111318.jpg";
+import KELA from "../../public/images/KELA-LogoHorizonta.svg";
+import hero from "../../public/images/apartment-building-city-with-copy-space.jpg";
+import patrick from "../../public/images/patrick.jpeg";
+import cafe from "../../public/images/two-african-businessman-sitting-outside-cafe.jpg";
+import woman from "../../public/images/smiling-woman-writing-notes-tablet-digital-device_53876-111318.jpg";
+import interior from "../../public/images/appartments/beautiful-summer-modern-home-interior-design.jpg";
+import architecture from "../../public/images/appartments/modern-apartment-architecture.jpg";
+import building from "../../public/images/appartments/modern-building-architecture.jpg";
+import style from "../../public/images/appartments/modern-style-house-exterior-with-terrace.jpg";
+import rural from "../../public/images/appartments/rural-house-with-stone-pathway.jpg";
+import spacious from "../../public/images/appartments/spacious-room-with-big-window.jpg";
 
-import face from "@/../../public/images/faces/beautiful-african-young-woman-face-portrait.jpg";
-import face1 from "@/../../public/images/faces/handsome-man-smiling-happy-face-portrait-close-up.jpg";
-import face2 from "@/../../public/images/faces/sleepy-mixed-race-man-portrait-deep-blue-background_633478-2106.jpg";
-import face3 from "@/../../public/images/faces/handsome-adult-male-posing_23-2148729713.jpg";
-
-// gallery
-
-import interior from "@/../../public/images/appartments/beautiful-summer-modern-home-interior-design.jpg";
-import architecture from "@/../../public/images/appartments/modern-apartment-architecture.jpg";
-import building from "@/../../public/images/appartments/modern-building-architecture.jpg";
-import style from "@/../../public/images/appartments/modern-style-house-exterior-with-terrace.jpg";
-import rural from "@/../../public/images/appartments/rural-house-with-stone-pathway.jpg";
-import spacious from "@/../../public/images/appartments/spacious-room-with-big-window.jpg";
-import KELA from "@/../../public/images/KELA-LogoHorizonta.svg";
 const montserrat = Montserrat({ subsets: ["latin"] });
 
-type Language = "en" | "fr";
-type Content = {
-  [key in Language]: {
-    heroTitle: string;
-    heroSubtitle: string;
-    heroCTA: string;
-    aboutTitle: string;
-    aboutText: string;
-    servicesTitle: string;
-    service1: string;
-    service2: string;
-    service3: string;
-    service4: string;
-    testimonialsTitle: string;
-    contactTitle: string;
-    propertyManagementTitle: string;
-    propertyManagementDesc: string;
-    tenantSearchTitle: string;
-    tenantSearchDesc: string;
-    rentCollectionTitle: string;
-    rentCollectionDesc: string;
-    propertyTransactionTitle: string;
-    propertyTransactionDesc: string;
-    legalAssistanceTitle: string;
-    legalAssistanceDesc: string;
-    gallery: string;
-    slogan:string;
-    fondateur: {
-      titre: string;
-      description: string;
-    };
-    contactForm: {
-      name: string;
-      email: string;
-      phone: string;
-      message: string;
-      submit: string;
-    };
+type Language = "fr" | "en";
 
-    navbar: {
-      home: string;
-      services: string;
-      testimonials: string;
-      about: string;
-      contact: string;
-    };
+type Copy = {
+  nav: {
+    home: string;
+    realEstate: string;
+    travel: string;
+    method: string;
+    founder: string;
+    contact: string;
+  };
+  hero: {
+    eyebrow: string;
+    title: string;
+    intro: string;
+    primary: string;
+    secondary: string;
+  };
+  pillars: {
+    title: string;
+    intro: string;
+    realEstateTitle: string;
+    realEstateBody: string;
+    travelTitle: string;
+    travelBody: string;
+  };
+  realEstate: {
+    eyebrow: string;
+    title: string;
+    intro: string;
+    services: string[];
+  };
+  travel: {
+    eyebrow: string;
+    title: string;
+    intro: string;
+    services: string[];
+    destinations: string[];
+    experiences: string[];
+  };
+  method: {
+    eyebrow: string;
+    title: string;
+    steps: { title: string; body: string }[];
+  };
+  founder: {
+    eyebrow: string;
+    title: string;
+    name: string;
+    body: string;
+  };
+  contact: {
+    eyebrow: string;
+    title: string;
+    body: string;
+    email: string;
+    phone: string;
+    office: string;
+    hours: string;
+    cta: string;
   };
 };
+
+const content: Record<Language, Copy> = {
+  fr: {
+    nav: {
+      home: "Accueil",
+      realEstate: "Immobilier",
+      travel: "Travel",
+      method: "Méthode",
+      founder: "Fondateur",
+      contact: "Contact",
+    },
+    hero: {
+      eyebrow: "Investissement immobilier & agence de voyage premium",
+      title: "Vos biens, vos voyages, vos ambitions. Nous orchestrons l'essentiel.",
+      intro:
+        "Kela Invest accompagne les propriétaires, investisseurs et voyageurs exigeants avec une approche complète: gestion immobilière, achat-vente, assistance juridique et séjours premium sur mesure.",
+      primary: "Découvrir nos services",
+      secondary: "Parler à un conseiller",
+    },
+    pillars: {
+      title: "Une maison pour deux expertises complémentaires.",
+      intro:
+        "L'entreprise grandit: Kela Invest conserve son exigence immobilière et ouvre une rubrique Travel pensée comme une conciergerie de voyage haut de gamme.",
+      realEstateTitle: "Patrimoine immobilier",
+      realEstateBody:
+        "Gestion locative, recherche de locataires, collecte des loyers, achat et vente de biens, analyse de rentabilité et accompagnement juridique.",
+      travelTitle: "Kela Travel",
+      travelBody:
+        "Billets d'avion, hôtels, accueil à l'aéroport, chauffeur, guide local, restauration maison, shopping détaxe et expériences sportives ou touristiques.",
+    },
+    realEstate: {
+      eyebrow: "Gestion & investissement",
+      title: "Un pilotage immobilier clair, rentable et rassurant.",
+      intro:
+        "Nous prenons en charge les détails qui fatiguent les propriétaires: suivi des locataires, stabilité des loyers, vérification des documents, études de terrain et coordination juridique.",
+      services: [
+        "Gestion locative et suivi propriétaire",
+        "Recherche de locataires fiables",
+        "Collecte des loyers et tableau de suivi",
+        "Achat, vente, prospection et étude de terrain",
+        "Authentification des documents et des propriétaires",
+        "Assistance juridique avant, pendant et après litige",
+      ],
+    },
+    travel: {
+      eyebrow: "Agence de voyage premium",
+      title: "Des séjours conçus comme une prise en charge totale.",
+      intro:
+        "Du billet d'avion au checking retour, Kela Travel organise un séjour sans friction: accueil, transport, hôtel, repas, guide, traduction, courses et expériences personnalisées.",
+      services: [
+        "Réservation billet aller-retour et hôtel",
+        "Accueil à l'aéroport avec voiture",
+        "Accompagnement à l'hôtel et pendant le séjour",
+        "Guide touristique et traduction locale",
+        "Cuisine occidentale ou congolaise faite maison",
+        "Shopping accompagné avec aide à la détaxe",
+      ],
+      destinations: [
+        "Afrique du Sud",
+        "France",
+        "Belgique",
+        "Allemagne",
+        "Portugal",
+        "Suède",
+        "Royaume-Uni",
+        "Canada",
+        "États-Unis - Californie",
+      ],
+      experiences: [
+        "Séjours touristiques privés",
+        "Voyages business et famille",
+        "Parcours football: PSG, Barça, Real, Chelsea",
+        "Billetterie match selon calendrier",
+      ],
+    },
+    method: {
+      eyebrow: "Comment nous travaillons",
+      title: "Une expérience cadrée, humaine et pilotée de bout en bout.",
+      steps: [
+        {
+          title: "Écoute",
+          body: "Nous clarifions votre objectif: investir, gérer un bien, vendre, acheter ou voyager avec une prise en charge premium.",
+        },
+        {
+          title: "Conception",
+          body: "Nous dessinons un plan simple: services utiles, budget, planning, risques, documents et niveau d'accompagnement souhaité.",
+        },
+        {
+          title: "Exécution",
+          body: "Nous coordonnons les intervenants, suivons les étapes et restons disponibles jusqu'à la livraison du service.",
+        },
+      ],
+    },
+    founder: {
+      eyebrow: "Vision",
+      title: "Un pont fiable entre la diaspora, la RDC et le monde.",
+      name: "Monsieur Patrick KABANGU",
+      body:
+        "Investir en République Démocratique du Congo est un rêve pour beaucoup de Congolais de la diaspora et du pays. Kela Invest répond à cette ambition avec plusieurs années d'expérience dans les grandes banques et agences immobilières françaises, puis étend cette exigence à une offre Travel premium.",
+    },
+    contact: {
+      eyebrow: "Contact",
+      title: "Dites-nous ce que vous voulez sécuriser ou organiser.",
+      body:
+        "Un bien à gérer, un investissement à analyser, un séjour premium à préparer: l'équipe vous répond avec une proposition claire.",
+      email: "contact@kelainvest.com",
+      phone: "+243 8 20 23 08 82",
+      office:
+        "60 boulevard du 30 juin, immeuble MAYUMBE, 6e étage, C/ Gombe, Kinshasa, RD Congo",
+      hours:
+        "Lun - Ven de 08h30 à 17h avec ou sans rendez-vous. Sam de 08h à 13h uniquement sur rendez-vous.",
+      cta: "Envoyer un email",
+    },
+  },
+  en: {
+    nav: {
+      home: "Home",
+      realEstate: "Real estate",
+      travel: "Travel",
+      method: "Method",
+      founder: "Founder",
+      contact: "Contact",
+    },
+    hero: {
+      eyebrow: "Real estate investment & premium travel agency",
+      title: "Your properties, your journeys, your ambitions. We handle the essentials.",
+      intro:
+        "Kela Invest supports demanding owners, investors and travellers with one complete approach: property management, transactions, legal support and bespoke premium stays.",
+      primary: "Explore services",
+      secondary: "Talk to an advisor",
+    },
+    pillars: {
+      title: "One brand, two complementary expertises.",
+      intro:
+        "Kela Invest is expanding: the company keeps its real estate discipline and introduces Kela Travel, a high-touch premium travel concierge.",
+      realEstateTitle: "Real estate wealth",
+      realEstateBody:
+        "Rental management, tenant search, rent collection, property purchase and sale, profitability analysis and legal assistance.",
+      travelTitle: "Kela Travel",
+      travelBody:
+        "Flights, hotels, airport welcome, chauffeur, local guide, homemade meals, tax-free shopping assistance and sports or tourism experiences.",
+    },
+    realEstate: {
+      eyebrow: "Management & investment",
+      title: "Clear, profitable and reassuring real estate stewardship.",
+      intro:
+        "We handle the details that exhaust owners: tenant follow-up, rent stability, document checks, land studies and legal coordination.",
+      services: [
+        "Rental management and owner reporting",
+        "Search for reliable tenants",
+        "Rent collection and monitoring dashboard",
+        "Purchase, sale, prospecting and land study",
+        "Document and owner authentication",
+        "Legal assistance before, during and after disputes",
+      ],
+    },
+    travel: {
+      eyebrow: "Premium travel agency",
+      title: "Stays designed as total care.",
+      intro:
+        "From flight booking to return check-in, Kela Travel creates a frictionless stay: welcome, transport, hotel, meals, guide, translation, shopping and tailored experiences.",
+      services: [
+        "Round-trip flight and hotel booking",
+        "Airport welcome with car",
+        "Hotel transfer and stay assistance",
+        "Tour guide and local translation",
+        "Western or Congolese homemade cuisine",
+        "Shopping assistance with tax refund support",
+      ],
+      destinations: [
+        "South Africa",
+        "France",
+        "Belgium",
+        "Germany",
+        "Portugal",
+        "Sweden",
+        "United Kingdom",
+        "Canada",
+        "United States - California",
+      ],
+      experiences: [
+        "Private tourism stays",
+        "Business and family travel",
+        "Football journeys: PSG, Barca, Real, Chelsea",
+        "Match tickets depending on schedule",
+      ],
+    },
+    method: {
+      eyebrow: "How we work",
+      title: "A framed, human experience managed from start to finish.",
+      steps: [
+        {
+          title: "Listen",
+          body: "We clarify your goal: invest, manage a property, sell, buy or travel with premium assistance.",
+        },
+        {
+          title: "Design",
+          body: "We shape a simple plan: useful services, budget, schedule, risks, documents and the right level of support.",
+        },
+        {
+          title: "Deliver",
+          body: "We coordinate partners, follow the steps and stay available until the service is delivered.",
+        },
+      ],
+    },
+    founder: {
+      eyebrow: "Vision",
+      title: "A trusted bridge between the diaspora, the DRC and the world.",
+      name: "Mr Patrick KABANGU",
+      body:
+        "Investing in the Democratic Republic of Congo is a dream for many Congolese people in the diaspora and at home. Kela Invest answers that ambition with years of experience in major French banks and real estate agencies, now extended into a premium Travel offer.",
+    },
+    contact: {
+      eyebrow: "Contact",
+      title: "Tell us what you want to secure or organize.",
+      body:
+        "A property to manage, an investment to analyze, a premium stay to prepare: the team replies with a clear proposal.",
+      email: "contact@kelainvest.com",
+      phone: "+243 8 20 23 08 82",
+      office:
+        "60 boulevard du 30 juin, immeuble MAYUMBE, 6th floor, C/ Gombe, Kinshasa, DR Congo",
+      hours:
+        "Mon - Fri from 08:30 to 17:00 with or without appointment. Sat from 08:00 to 13:00 by appointment only.",
+      cta: "Send an email",
+    },
+  },
+};
+
+const gallery: StaticImageData[] = [interior, architecture, building, rural, spacious, style];
+
+const travelHero =
+  "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1600&q=85";
+const travelCity =
+  "https://images.unsplash.com/photo-1580060839134-75a5edca2e99?auto=format&fit=crop&w=1200&q=85";
 
 export default function Home() {
   const [language, setLanguage] = useState<Language>("fr");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
-  const [shouldShowHeader, setShouldShowHeader] = useState(true);
+  const [showHeader, setShowHeader] = useState(true);
 
-  // Add scroll handler
-  useEffect(() => {
-    const controlHeader = () => {
-      if (typeof window !== "undefined") {
-        // Show header when scrolling up or at top
-        if (window.scrollY < lastScrollY || window.scrollY < 10) {
-          setShouldShowHeader(true);
-        } else {
-          // Hide header when scrolling down
-          setShouldShowHeader(false);
-        }
-        setLastScrollY(window.scrollY);
-      }
-    };
-
-    if (typeof window !== "undefined") {
-      window.addEventListener("scroll", controlHeader);
-
-      // Cleanup
-      return () => {
-        window.removeEventListener("scroll", controlHeader);
-      };
-    }
-  }, [lastScrollY]);
-
-  const testimonials = [
-    {
-      id: 1,
-      image: face,
-      message: "Service exceptionnel et professionnalisme remarquable.",
-    },
-    {
-      id: 2,
-      image: face1,
-      message: "Une prise en charge personnalisée avec un vrai souci du détail.",
-    },
-    {
-      id: 3,
-      image: face2,
-      message: "Une équipe dévouée qui fait de la satisfaction client sa priorité.",
-    },
-    {
-      id: 4,
-      image: face3,
-      message: "Des conseils avisés et un suivi rigoureux à chaque étape.",
-    },
+  const copy = content[language];
+  const stats = [
+    { value: "02", label: language === "fr" ? "expertises" : "expertises" },
+    { value: "09+", label: language === "fr" ? "destinations" : "destinations" },
+    { value: "360°", label: language === "fr" ? "prise en charge" : "full support" },
   ];
 
-  const content: Content = {
-    en: {
-      navbar: {
-        home: "Home",
-        services: "Services",
-        testimonials: "Testimonials",
-        about: "About",
-        contact: "Contact",
-      },
-      slogan:"With us, the security of your property investments is guaranteed ",
-      heroTitle:
-        "Your Property, Our Expertise  Seamless Management & Investment Solutions",
-      heroSubtitle:
-        "Discover Kela Invest, your trusted partner in real estate management and investment. We make property ownership stress-free and profitable.",
-      heroCTA: "Get Started",
-      aboutTitle:
-        "Discover Kela Invest: Your Partner in Real Estate Excellence and Investment.",
-      aboutText:
-        "Kela Invest provides top-tier real estate management services, ensuring maximum returns and hassle-free property ownership.",
-      servicesTitle:
-        "Our Exclusive Services for Unparalleled Real Estate Management.",
-      service1: "Effortless property management for optimal returns.",
-      service2: "Strategic investments to grow your real estate portfolio.",
-      service3: "Expert maintenance and renovation for premium properties.",
-      service4: "Elegant real estate design and consultation.",
-      testimonialsTitle: "What Our Clients Say",
-      contactTitle: "Contact Us",
-      propertyManagementTitle:
-        "Discover our property management services for complete peace of mind.",
-      propertyManagementDesc:
-        "At Kela Invest, we handle all aspects of property management. Our experienced team ensures a worry-free experience for both property owners and tenants.",
-      tenantSearchTitle: "Tenant Search",
-      tenantSearchDesc:
-        "We find the best tenants for your property, ensuring reliable income.",
-      rentCollectionTitle: "Rent Collection",
-      rentCollectionDesc:
-        "As your peace of mind and peace of mind are our ultimate objectives, Kela Invest takes care of collecting your rents in order to guarantee the stability of your cash flow on time. Provision of a monitoring table.",
-      gallery: "Gallery",
-      contactForm: {
-        name: "Name",
-        email: "Email",
-        phone: "Phone Number",
-        message: "Message",
-        submit: "Send Message",
-      },
-      fondateur: {
-        titre: "Founder",
-        description:
-          "Investing in the Democratic Republic of Congo has always been a goal and a dream for many Congolese from the diaspora and those living in the country, but there are a number of problems that generally eat away at ambitions and systematically discourage investment. To remedy this problem, we have decided to come to your aid by making available to you our expertise and experience of several years in the largest French banks and estate agencies",
-      },
+  useEffect(() => {
+    const controlHeader = () => {
+      setShowHeader(window.scrollY < lastScrollY || window.scrollY < 12);
+      setLastScrollY(window.scrollY);
+    };
 
-      propertyTransactionTitle: "Real Estate Purchase & Sale",
-      propertyTransactionDesc:
-        "Document and owner authentication, land prospecting and study, valuation, feasibility and profitability analysis...",
-      legalAssistanceTitle: "Legal Assistance",
-      legalAssistanceDesc:
-        "Legal support from our lawyers before, during and after any dispute.",
-    },
-    fr: {
-      navbar: {
-        home: "Accueil",
-        services: "Services",
-        testimonials: "Témoignages",
-        about: "À Propos",
-        contact: "Contact",
-      },
-      slogan:"Avec nous, la sécurité de vos investissements immobiliers est assurée ",
-      
-      heroTitle:
-        "Votre Propriété, Notre Expertise  Solutions Élégantes de Gestion & Investissement",
-      heroSubtitle:
-        "Découvrez Kela Invest, votre partenaire de confiance en gestion immobilière et investissement. Nous simplifions la gestion de vos biens tout en maximisant leur rentabilité.",
-      heroCTA: "Commencer",
-      aboutTitle:
-        "Découvrez Kela Invest : Votre Partenaire en Excellence Immobilière et Investissement.",
-      aboutText:
-        "Kela Invest offre des services de gestion immobilière haut de gamme, garantissant des rendements optimaux et une gestion sans tracas.",
-      servicesTitle:
-        "Nos services exclusifs pour une gestion immobilière sans égal.",
-      service1: "Gestion locative simplifiée pour un rendement optimal.",
-      service2:
-        "Investissements stratégiques pour développer votre patrimoine immobilier.",
-      service3: "Entretien et rénovation experts pour des propriétés premium.",
-      service4: "Conception immobilière élégante et consultation.",
-      testimonialsTitle: "Ce que disent nos clients",
-      contactTitle: "Contactez-nous",
-      propertyManagementTitle:
-        "Découvrez nos services de gestion immobilière pour une tranquillité d'esprit totale.",
-      propertyManagementDesc:
-        "Chez Kela Invest, nous nous occupons de tous les aspects de la gestion immobilière. Notre équipe expérimentée garantit une expérience sans souci pour les propriétaires et les locataires.",
-      tenantSearchTitle: "Recherche de locataires",
-      tenantSearchDesc:
-        "Nous trouvons les meilleurs locataires pour votre propriété, assurant des revenus fiables.",
-      rentCollectionTitle: "Collecte de loyer",
-      rentCollectionDesc:
-        "Votre tranquillité et votre apaisement étant notre objectif ultime, Kela Invest s’occupe de la collecte de vos loyers afin de garantir la stabilité de vos flux de trésorerie en temps et en heures. Mise à disposition d’un tableau de suivi.",
-      gallery: "Notre gallerie",
-      contactForm: {
-        name: "Nom",
-        email: "Email",
-        phone: "Numéro de téléphone",
-        message: "Message",
-        submit: "Envoyer le message",
-      },
-      fondateur: {
-        titre: "Fondateur",
-        description:
-          "Investir en République Démocratique du Congo a toujours été un objectif et un rêve pour beaucoup de Congolais issus de la diaspora et ceux vivant au pays, en revanche, plusieurs maux rongent généralement les ambitions et découragent systématiquement. Afin de remédier à cette problématique, nous avons décidé de vous venir en aide en mettant à votre disposition notre expertise et expérience de plusieurs années dans les plus grandes banques et agences immobilières Françaises.",
-      },
-      propertyTransactionTitle: "Achat et Vente de Bien Immobilier",
-      propertyTransactionDesc:
-        "Authentification des documents et propriétaires, prospection et étude du terrain, valorisation, analyse de faisabilité et rentabilité...",
-      legalAssistanceTitle: "Assistance Juridique",
-      legalAssistanceDesc:
-        "Accompagnement juridique par nos juristes avant, pendant et après chaque litige.",
-    },
-  };
+    window.addEventListener("scroll", controlHeader, { passive: true });
+    return () => window.removeEventListener("scroll", controlHeader);
+  }, [lastScrollY]);
+
+  const navItems = useMemo(
+    () => [
+      { href: "#home", label: copy.nav.home },
+      { href: "#real-estate", label: copy.nav.realEstate },
+      { href: "#travel", label: copy.nav.travel },
+      { href: "#method", label: copy.nav.method },
+      { href: "#founder", label: copy.nav.founder },
+      { href: "#contact", label: copy.nav.contact },
+    ],
+    [copy]
+  );
 
   return (
-    <div className={`${montserrat.className} bg-gray-100 text-gray-900`}>
-      {/* Updated Header with Navigation */}
-
+    <main className={`${montserrat.className} bg-[#f5f7f2] text-[#101819]`}>
       <motion.header
         initial={{ y: 0, opacity: 1 }}
-        animate={{
-          y: shouldShowHeader ? 0 : -100,
-          opacity: shouldShowHeader ? 1 : 0,
-        }}
-        transition={{
-          duration: 0.3,
-          ease: "easeInOut",
-        }}
-        className="bg-white h-[120px] font-bold text-black py-6 px-8 fixed w-full z-50"
+        animate={{ y: showHeader ? 0 : -110, opacity: showHeader ? 1 : 0 }}
+        transition={{ duration: 0.3, ease: "easeInOut" }}
+        className="fixed left-0 top-0 z-50 w-full px-4 pt-4 md:px-8"
       >
-        <div className="max-w-6xl mx-auto flex justify-between items-center">
-          <motion.h1
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            className=" text-gold-500"
-          >
-            {/* KelainvestnKELA */}
-            <Image
-                src={KELA}
-                alt="About Kelainvest"
-                height={0}
-                width={160}
-                // fill
-                className="object-fit "
-              />
-          </motion.h1>
+        <div className="mx-auto flex max-w-7xl items-center justify-between border border-white/50 bg-[#fbfcf7]/90 px-4 py-3 shadow-[0_24px_80px_rgba(31,24,15,0.12)] backdrop-blur-xl md:px-6">
+          <Link href="#home" className="flex items-center gap-3">
+            <Image src={KELA} alt="Kela Invest" width={150} height={46} className="h-auto w-[135px] md:w-[150px]" />
+          </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
-            <Link href="#home" className="hover:text-yellow-600">
-              {content[language].navbar.home}
-            </Link>
-            <Link
-              href="#services"
-              className="hover:text-yellow-600 transition-colors"
-            >
-              {content[language].navbar.services}
-            </Link>
-            <Link href="#testimonials" className="hover:text-yellow-600">
-              {content[language].navbar.testimonials}
-            </Link>
-            <Link href="#about" className="hover:text-yellow-600">
-              {content[language].navbar.about}
-            </Link>
-            <Link href="#contact" className="hover:text-yellow-600">
-              {content[language].navbar.contact}
-            </Link>
+          <nav className="hidden items-center gap-7 text-sm font-semibold uppercase text-[#263735] lg:flex">
+            {navItems.map((item) => (
+              <Link key={item.href} href={item.href} className="transition hover:text-[#b98b2f]">
+                {item.label}
+              </Link>
+            ))}
           </nav>
 
-          {/* Language Toggle Button */}
-          <button
-            className="px-4 py-2 border border-gold-500 rounded-lg hover:bg-gold-500 transition-all"
-            onClick={() => setLanguage(language === "en" ? "fr" : "en")}
-          >
-            {language === "en" ? "Fr" : "En"}
-          </button>
-
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden text-gold-500"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            <Icon
-              icon={isMenuOpen ? "mdi:close" : "mdi:menu"}
-              className="text-2xl"
-            />
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setLanguage(language === "fr" ? "en" : "fr")}
+              className="border border-[#101819] px-3 py-2 text-xs font-bold uppercase transition hover:bg-[#101819] hover:text-white"
+            >
+              {language === "fr" ? "EN" : "FR"}
+            </button>
+            <button
+              onClick={() => setIsMenuOpen((value) => !value)}
+              className="grid h-10 w-10 place-items-center border border-[#101819] lg:hidden"
+              aria-label="Menu"
+            >
+              <Icon icon={isMenuOpen ? "mdi:close" : "mdi:menu"} className="text-2xl" />
+            </button>
+          </div>
         </div>
 
-        {/* Mobile Navigation */}
         <AnimatePresence>
           {isMenuOpen && (
             <motion.nav
-              initial={{ opacity: 0, y: -20 }}
+              initial={{ opacity: 0, y: -12 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              className="md:hidden absolute top-full left-0 w-full bg-white py-4"
+              exit={{ opacity: 0, y: -12 }}
+              className="mx-auto mt-2 max-w-7xl border border-white/50 bg-[#fbfcf7] px-6 py-5 shadow-2xl lg:hidden"
             >
-              <div className="flex flex-col items-center space-y-4">
-                <Link
-                  href="#home"
-                  className="hover:text-gold-500 transition-colors"
-                >
-                  {content[language].navbar.home}
-                </Link>
-                <Link
-                  href="#services"
-                  className="hover:text-gold-500 transition-colors"
-                >
-                  {content[language].navbar.services}
-                </Link>
-                <Link
-                  href="#testimonials"
-                  className="hover:text-gold-500 transition-colors"
-                >
-                  {content[language].navbar.testimonials}
-                </Link>
-                <Link
-                  href="#about"
-                  className="hover:text-gold-500 transition-colors"
-                >
-                  {content[language].navbar.about}
-                </Link>
-                <Link
-                  href="#contact"
-                  className="hover:text-gold-500 transition-colors"
-                >
-                  {content[language].navbar.contact}
-                </Link>
+              <div className="grid gap-4 text-sm font-bold uppercase">
+                {navItems.map((item) => (
+                  <Link key={item.href} href={item.href} onClick={() => setIsMenuOpen(false)}>
+                    {item.label}
+                  </Link>
+                ))}
               </div>
             </motion.nav>
           )}
         </AnimatePresence>
       </motion.header>
-      {/* Add this section to your JSX */}
 
-      <motion.section
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        id="home"
-        className="h-screen flex items-center justify-center text-center relative"
-        style={{
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${hero.src})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
-        <div className="max-w-4xl px-6">
-          <motion.h2
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            className="md:text-3xl font-bold text-white mb-6"
-          >
-            {content[language].heroSubtitle}
-          </motion.h2>
-          <motion.p
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.4 }}
-            className="text-xl text-white mb-8"
-          >
-            
-            {content[language].slogan}
+      <section id="home" className="relative min-h-screen overflow-hidden bg-[#0f1718] px-4 pb-12 pt-32 text-white md:px-8 md:pt-40">
+        <Image src={hero} alt="Modern city apartment building" fill priority className="object-cover opacity-45" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_78%_18%,rgba(217,177,92,0.36),transparent_32%),linear-gradient(105deg,rgba(15,12,9,0.96),rgba(15,12,9,0.62)_48%,rgba(15,12,9,0.34))]" />
 
-          </motion.p>
-          {/* <motion.button
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.6 }}
-            className="bg-gold-500 text-white px-8 py-4 text-lg font-semibold rounded-lg hover:bg-gold-600 transition-all"
-          >
-            {content[language].heroCTA}
-          </motion.button> */}
-        </div>
-      </motion.section>
-      {/* <section className="py-20 px-6 max-w-6xl mx-auto">
-        <h2 className="text-3xl font-semibold text-center mb-6">{content[language].aboutTitle}</h2>
-        <p className="text-lg text-center mb-8">{content[language].aboutText}</p>
-      </section> */}
-
-      {/* service */}
-      <section id="services" className="py-20 px-4 md:px-2 max-w-6xl mx-auto">
-        <h2 className="text-3xl font-semibold text-center mb-12">
-          {content[language].servicesTitle}
-        </h2>
-        <div className="grid grid-cols-1   md:grid-cols-3 gap-8">
-          <motion.div
-            whileHover={{ y: -10 }}
-            className="p-8 bg-white cursor-pointer shadow-xl rounded-lg flex flex-col items-center text-center"
-          >
-            <Icon
-              icon="mdi:home-outline"
-              style={{ color: "#FFD700" }}
-              className="text-5xl text-gold-500 mb-6"
-            />
-            <p className="text-lg">{content[language].service1}</p>
-          </motion.div>
-          <motion.div
-            whileHover={{ y: -10 }}
-            className="p-8 bg-white cursor-pointer shadow-xl rounded-lg flex flex-col items-center text-center"
-          >
-            <Icon
-              icon="mdi:office-building"
-              style={{ color: "#FFD700" }}
-              className="text-5xl text-gold-500 mb-6"
-            />
-            <p className="text-lg">{content[language].service2}</p>
-          </motion.div>
-          <motion.div
-            whileHover={{ y: -10 }}
-            className="p-8 bg-white cursor-pointer shadow-xl rounded-lg flex flex-col items-center text-center"
-          >
-            <Icon
-              icon="mdi:tools"
-              style={{ color: "#FFD700" }}
-              className="text-5xl text-gold-500 mb-6"
-            />
-            <p className="text-lg">{content[language].service3}</p>
-          </motion.div>
-          <motion.div
-            whileHover={{ y: -10 }}
-            className="p-8 bg-white cursor-pointer shadow-xl rounded-lg flex flex-col items-center text-center"
-          >
-            <Icon
-              icon="mdi:pencil-ruler"
-              style={{ color: "#FFD700" }}
-              className="text-5xl text-gold-500 mb-6"
-            />
-            <p className="text-lg">{content[language].service4}</p>
+        <div className="relative mx-auto grid max-w-7xl gap-12 lg:grid-cols-[1.08fr_0.92fr] lg:items-end">
+          <motion.div initial={{ opacity: 0, y: 22 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} className="max-w-4xl">
+            <p className="mb-6 text-xs font-bold uppercase text-[#d8b35e]">{copy.hero.eyebrow}</p>
+            <h1 className="max-w-2xl text-5xl font-black leading-[0.95] md:text-7xl">
+            {/* <h1 className="max-w-2xl text-5xl font-black leading-[0.95] md:text-7xl lg:text-8xl"> */}
+              {copy.hero.title}
+            </h1>
+            <p className="mt-8 max-w-2xl text-lg leading-8 text-[#eef3ea] md:text-xl">{copy.hero.intro}</p>
+            <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+              <Link href="#pillars" className="bg-[#d8aa45] px-6 py-4 text-center text-sm font-black uppercase text-[#101819] transition hover:bg-white">
+                {copy.hero.primary}
+              </Link>
+              <Link href="#contact" className="border border-white/45 px-6 py-4 text-center text-sm font-black uppercase text-white transition hover:border-white hover:bg-white hover:text-[#101819]">
+                {copy.hero.secondary}
+              </Link>
+            </div>
           </motion.div>
 
-          {/* New Property Transaction Service */}
-          <motion.div
-            whileHover={{ y: -10 }}
-            className="p-8 bg-white cursor-pointer shadow-xl rounded-lg flex flex-col items-center text-center"
-          >
-            <Icon
-              icon="mdi:handshake"
-              className="text-5xl mb-6"
-              style={{ color: "#FFD700" }}
-            />
-            {/* <h3 className="font-semibold mb-2">
-        {content[language].propertyTransactionTitle}
-      </h3> */}
-            <p className="text-sm">
-              {content[language].propertyTransactionDesc}
-            </p>
-          </motion.div>
-
-          {/* New Legal Assistance Service */}
-          <motion.div
-            whileHover={{ y: -10 }}
-            className="p-8 bg-white cursor-pointer shadow-xl rounded-lg flex flex-col items-center text-center"
-          >
-            <Icon
-              icon="mdi:scale-balance"
-              className="text-5xl mb-6"
-              style={{ color: "#FFD700" }}
-            />
-            {/* <h3 className="font-semibold mb-2">
-              {content[language].legalAssistanceTitle}
-            </h3> */}
-            <p className="text-sm">{content[language].legalAssistanceDesc}</p>
+          <motion.div initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.7 }} className="grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
+            {stats.map((stat) => (
+              <div key={stat.label} className="border border-white/20 bg-white/10 p-5 backdrop-blur-md">
+                <p className="text-4xl font-black text-[#d8aa45]">{stat.value}</p>
+                <p className="mt-1 text-xs font-bold uppercase text-[#eef3ea]">{stat.label}</p>
+              </div>
+            ))}
           </motion.div>
         </div>
       </section>
 
-         {/* Updated About Section */}
-         <section id="about" className="py-20 px-6 max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-3xl font-semibold mb-4">
-                {content[language].fondateur.titre}
-              </h2>
-              <p className="font-bold text-lg mb-2">
-                Monsieur Patrick KABANGU
-              </p>
-              <p className="text-lg">
-                {content[language].fondateur.description}
+      <section id="pillars" className="px-4 py-20 md:px-8 md:py-28">
+        <div className="mx-auto max-w-7xl">
+          <div className="max-w-3xl">
+            <p className="text-xs font-black uppercase text-[#0f766e]">Kela Invest</p>
+            <h2 className="mt-4 text-4xl font-black leading-tight md:text-6xl">{copy.pillars.title}</h2>
+            <p className="mt-6 text-lg leading-8 text-[#52615e]">{copy.pillars.intro}</p>
+          </div>
+
+          <div className="mt-12 grid gap-5 lg:grid-cols-2">
+            <PillarCard
+              icon="mdi:home-city-outline"
+              title={copy.pillars.realEstateTitle}
+              body={copy.pillars.realEstateBody}
+              image={cafe}
+              href="#real-estate"
+              action={language === "fr" ? "Explorer" : "Explore"}
+            />
+            <PillarCard
+              icon="mdi:airplane"
+              title={copy.pillars.travelTitle}
+              body={copy.pillars.travelBody}
+              imageUrl={travelHero}
+              href="#travel"
+              action={language === "fr" ? "Explorer" : "Explore"}
+            />
+          </div>
+        </div>
+      </section>
+
+      <section id="real-estate" className="bg-[#101819] px-4 py-20 text-white md:px-8 md:py-28">
+        <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+          <div className="relative min-h-[520px] overflow-hidden">
+            <Image src={woman} alt="Real estate advisor working with a client" fill className="object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/55 to-transparent" />
+            <div className="absolute bottom-0 left-0 right-0 p-6">
+              <p className="text-sm font-bold uppercase text-[#f0c970]">Kinshasa - RDC</p>
+              <p className="mt-2 max-w-md text-2xl font-black">
+                {language === "fr" ? "Gestion, transaction, sécurisation et suivi." : "Management, transaction, security and follow-up."}
               </p>
             </div>
-            <div className="relative h-[400px]">
-              <Image
-                src={patrick}
-                alt="About Kelainvest"
-                fill
-                className="object-cover rounded-lg"
-              />
+          </div>
+
+          <div>
+            <p className="text-xs font-black uppercase text-[#d8aa45]">{copy.realEstate.eyebrow}</p>
+            <h2 className="mt-4 text-4xl font-black leading-tight md:text-6xl">{copy.realEstate.title}</h2>
+            <p className="mt-6 text-lg leading-8 text-[#ddd2c1]">{copy.realEstate.intro}</p>
+            <div className="mt-10 grid gap-3 sm:grid-cols-2">
+              {copy.realEstate.services.map((service) => (
+                <ServiceItem key={service} icon="mdi:check-circle-outline" label={service} />
+              ))}
             </div>
-          </div>
-        </section>
-
-      <motion.section
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        className="py-20 px-6 border bg-white mx-auto"
-      >
-        <div className="grid md:grid-cols-2 gap-12  items-center">
-          <div className="relative h-[600px]">
-            <Image
-              src={cafe}
-              alt="Property Management Services"
-              fill
-              className="object-cover rounded-lg"
-            />
-          </div>
-          {/* Left Column - Text Content */}
-          <div className="space-y-8">
-            <h2 className="text-4xl font-bold">
-              {content[language].propertyManagementTitle}
-            </h2>
-            <p className="text-lg">
-              {content[language].propertyManagementDesc}
-            </p>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div>
-                <h3 className="text-xl font-semibold mb-3">
-                  {content[language].tenantSearchTitle}
-                </h3>
-                <p>{content[language].tenantSearchDesc}</p>
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold mb-3">
-                  {content[language].rentCollectionTitle}
-                </h3>
-                <p>{content[language].rentCollectionDesc}</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Right Column - Image */}
-        </div>
-      </motion.section>
-
-      {/* Add this section to your JSX */}
-      <section className="py-20 px-6 max-w-6xl  mx-auto">
-        <div className="grid md:grid-cols-2 gap-12  items-center">
-          {/* Left Column - Text Content */}
-          <div className="space-y-8">
-            <h2 className="text-4xl font-bold">
-              {content[language].propertyTransactionTitle}
-            </h2>
-            <p className="text-lg">
-              {content[language].propertyTransactionDesc}
-            </p>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div>
-                <h3 className="text-xl font-semibold mb-2">
-                  {content[language].legalAssistanceTitle}
-                </h3>
-                <p>{content[language].legalAssistanceDesc}</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Right Column - Image */}
-          <div className="relative h-[600px]">
-            <Image
-              src={woman}
-              alt="Property Management Services"
-              fill
-              className="object-cover rounded-lg"
-            />
           </div>
         </div>
       </section>
 
-      {/* New Gallery Section */}
-      <section className="py-20 px-4 bg-gray-50">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-bold text-center mb-12">
-            {content[language].gallery}
-          </h2>
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-          >
-            {[interior, architecture, building, rural, spacious, style].map(
-              (image, index) => (
-                <motion.div
-                  key={index}
-                  whileHover={{ scale: 1.05 }}
-                  className="relative h-[300px] overflow-hidden rounded-lg shadow-lg"
-                >
-                  <Image
-                    src={image}
-                    alt={`Gallery image ${index + 1}`}
-                    fill
-                    className="object-cover transition-transform hover:scale-110"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  />
-                  <div className="absolute inset-0 bg-black bg-opacity-20 hover:bg-opacity-30 transition-all" />
-                </motion.div>
-              )
-            )}
-          </motion.div>
-        </div>
-      </section>
+      <section id="travel" className="relative overflow-hidden bg-[#fbfcf7] px-4 py-20 md:px-8 md:py-28">
+        <div className="absolute right-0 top-0 hidden h-full w-[38%] bg-[#d8aa45] lg:block" />
+        <div className="relative mx-auto grid max-w-7xl gap-12 lg:grid-cols-[1fr_0.9fr] lg:items-center">
+          <div>
+            <p className="text-xs font-black uppercase text-[#0f766e]">{copy.travel.eyebrow}</p>
+            <h2 className="mt-4 text-4xl font-black leading-tight md:text-6xl">{copy.travel.title}</h2>
+            <p className="mt-6 text-lg leading-8 text-[#52615e]">{copy.travel.intro}</p>
 
-      {/* Updated Testimonials Section */}
-      <motion.section
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        id="testimonials"
-        className="py-20 px-2 mx-auto"
-      >
-        <h2 className="text-3xl font-semibold text-center mb-12">
-          {content[language].testimonialsTitle}
-        </h2>
-        <motion.div
-          initial={{ x: 300 }}
-          animate={{ x: -300 }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-          className="flex items-center space-x-8"
-        >
-          {testimonials.map((elememnt) => (
+            <div className="mt-10 grid gap-3 sm:grid-cols-2">
+              {copy.travel.services.map((service) => (
+                <ServiceItem key={service} icon="mdi:star-four-points-outline" label={service} dark={false} />
+              ))}
+            </div>
+          </div>
+
+          <div className="grid gap-4">
             <div
-              key={elememnt.id}
-              className="flex items-center space-x-4 bg-white p-6 rounded-lg shadow-lg min-w-[300px]"
-            >
-              <Image
-                src={elememnt.image}
-                alt={`Client ${elememnt.id}`}
-                width={50}
-                height={50}
-                className="rounded-full"
-              />
-              <div>
-                <p className="text-lg italic">{elememnt.message}</p>
-
-                {/* <p className="text-gold-500 mt-2">Client {elememnt.id}</p> */}
-              </div>
-            </div>
-          ))}
-        </motion.div>
-
-     
-
-        {/* Contact Section */}
-        <section id="contact" className="py-20 px-6 max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-12">
-            {/* Left Column */}
-            <div>
-              <span className="text-gold-500">Contact</span>
-              <h2 className="text-4xl font-bold mb-6">Contactez-nous</h2>
-              <p className="text-lg mb-8">
-                Pour toute question, veuillez nous contacter via les
-                informations ci-dessous.
-              </p>
-            </div>
-
-            {/* Right Column */}
-            <div className="space-y-6">
-              <div className="flex items-center space-x-4">
-                <Icon icon="mdi:email" className="text-2xl text-gold-500" />
-                <div>
-                  <h3 className="text-xl font-semibold">Email</h3>
-                  <a
-                    href="mailto:hello@kelainvest.com"
-                    className="hover:text-gold-500 underline"
-                  >
-                    contact@kelainvest.com
-                  </a>
-                </div>
-              </div>
-
-              <div className="flex items-center space-x-4">
-                <Icon icon="mdi:phone" className="text-2xl text-gold-500" />
-                <div>
-                  <h3 className="text-xl font-semibold">Téléphone</h3>
-                  <a
-                    href="tel:+243820230882"
-                    className="hover:text-gold-500 underline"
-                  >
-                    +243 8 20 23 08 82
-
-                  </a>
-                </div>
-              </div>
-
-              <div className="flex items-center space-x-4">
-                <Icon
-                height={40}
-                width={40}
-                  icon="mdi:office-building-marker"
-                  className="text-2xl text-gold-500"
-                />
-                <div>
-                  <h3 className="text-xl font-semibold">Bureau</h3>
-                  <address className="not-italic">
-                  60 boulevard du 30 juin, immeuble MAYUMBE, 6e étage, C/ Gombe, Kinshasa, RD Congo
-                  </address>
-                </div>
-              </div>
-
-              <div className="flex items-center space-x-4">
-                <Icon   height={30}
-                width={30} icon="mdi:alarm-clock" className="text-2xl text-gold-500" />
-                <div>
-                  <h3 className="text-xl font-semibold">Horaires</h3>
-                  <a
-                    href="tel:+1555000000"
-                    className="hover:text-gold-500 "
-                  >
-                    Lun - Ven de 08h30 - 17h avec ou sans rendez-vous <br/> Sam de 08h - 13h uniquement sur rendez-vous.
-                  </a>
-                </div>
-              </div>
+              className="min-h-[380px] bg-cover bg-center shadow-[0_34px_90px_rgba(31,24,15,0.22)]"
+              style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.08), rgba(0,0,0,0.45)), url(${travelCity})` }}
+              role="img"
+              aria-label="Premium travel destination"
+            />
+            <div className="grid gap-4 sm:grid-cols-2">
+              <InfoPanel title={language === "fr" ? "Destinations" : "Destinations"} items={copy.travel.destinations} />
+              <InfoPanel title={language === "fr" ? "Expériences" : "Experiences"} items={copy.travel.experiences} />
             </div>
           </div>
-        </section>
-      </motion.section>
+        </div>
+      </section>
 
-      <footer className="bg-gray-900 text-white text-center py-6">
-        <p>
-          &copy; {new Date().getFullYear()} Kela Invest. All rights reserved.
-        </p>
+      <section id="method" className="px-4 py-20 md:px-8 md:py-28">
+        <div className="mx-auto max-w-7xl">
+          <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
+            <div>
+              <p className="text-xs font-black uppercase text-[#0f766e]">{copy.method.eyebrow}</p>
+              <h2 className="mt-4 text-4xl font-black leading-tight md:text-6xl">{copy.method.title}</h2>
+            </div>
+            <div className="grid gap-4 md:grid-cols-3">
+              {copy.method.steps.map((step, index) => (
+                <div key={step.title} className="border border-[#d7ded7] bg-[#fbfcf7] p-6">
+                  <p className="text-5xl font-black text-[#d8aa45]">0{index + 1}</p>
+                  <h3 className="mt-8 text-2xl font-black">{step.title}</h3>
+                  <p className="mt-4 leading-7 text-[#52615e]">{step.body}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-[#101819] px-4 py-20 text-white md:px-8 md:py-28">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-10 flex flex-col justify-between gap-5 md:flex-row md:items-end">
+            <div>
+              <p className="text-xs font-black uppercase text-[#d8aa45]">
+                {language === "fr" ? "Portfolio visuel" : "Visual portfolio"}
+              </p>
+              <h2 className="mt-4 text-4xl font-black md:text-6xl">{language === "fr" ? "Un univers premium, concret et lisible." : "A premium world, concrete and clear."}</h2>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-3 md:grid-cols-6">
+            {gallery.map((image, index) => (
+              <div key={image.src} className={`relative min-h-[220px] overflow-hidden ${index === 0 || index === 5 ? "md:col-span-2 md:row-span-2 md:min-h-[455px]" : "md:col-span-2"}`}>
+                <Image src={image} alt="Kela Invest property visual" fill className="object-cover transition duration-700 hover:scale-105" />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="founder" className="px-4 py-20 md:px-8 md:py-28">
+        <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
+          <div className="relative min-h-[520px] overflow-hidden bg-[#101819]">
+            <Image src={patrick} alt={copy.founder.name} fill className="object-cover" />
+          </div>
+          <div>
+            <p className="text-xs font-black uppercase text-[#0f766e]">{copy.founder.eyebrow}</p>
+            <h2 className="mt-4 text-4xl font-black leading-tight md:text-6xl">{copy.founder.title}</h2>
+            <p className="mt-8 text-xl font-black">{copy.founder.name}</p>
+            <p className="mt-5 text-lg leading-8 text-[#52615e]">{copy.founder.body}</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" className="bg-[#0f4d4a] px-4 py-20 text-white md:px-8 md:py-28">
+        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.95fr_1.05fr]">
+          <div>
+            <p className="text-xs font-black uppercase text-[#d8aa45]">{copy.contact.eyebrow}</p>
+            <h2 className="mt-4 text-4xl font-black leading-tight md:text-6xl">{copy.contact.title}</h2>
+            <p className="mt-6 text-lg leading-8 text-[#eef3ea]">{copy.contact.body}</p>
+            <a href={`mailto:${copy.contact.email}`} className="mt-10 inline-flex items-center gap-3 bg-[#d8aa45] px-6 py-4 text-sm font-black uppercase text-[#101819] transition hover:bg-white">
+              {copy.contact.cta}
+              <Icon icon="mdi:arrow-right" className="text-xl" />
+            </a>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <ContactCard icon="mdi:email-outline" title="Email" body={copy.contact.email} href={`mailto:${copy.contact.email}`} />
+            <ContactCard icon="mdi:phone-outline" title={language === "fr" ? "Téléphone" : "Phone"} body={copy.contact.phone} href="tel:+243820230882" />
+            <ContactCard icon="mdi:map-marker-outline" title={language === "fr" ? "Bureau" : "Office"} body={copy.contact.office} />
+            <ContactCard icon="mdi:clock-outline" title={language === "fr" ? "Horaires" : "Hours"} body={copy.contact.hours} />
+          </div>
+        </div>
+      </section>
+
+      <footer className="bg-[#101819] px-4 py-8 text-center text-sm font-semibold uppercase text-[#eef3ea]">
+        © {new Date().getFullYear()} Kela Invest. Real Estate & Premium Travel.
       </footer>
+    </main>
+  );
+}
+
+function PillarCard({
+  icon,
+  title,
+  body,
+  href,
+  image,
+  imageUrl,
+  action,
+}: {
+  icon: string;
+  title: string;
+  body: string;
+  href: string;
+  image?: StaticImageData;
+  imageUrl?: string;
+  action: string;
+}) {
+  return (
+    <Link href={href} className="group relative min-h-[430px] overflow-hidden bg-[#101819] p-6 text-white">
+      {image ? (
+        <Image src={image} alt="" fill className="object-cover opacity-55 transition duration-700 group-hover:scale-105 group-hover:opacity-70" />
+      ) : (
+        <div className="absolute inset-0 bg-cover bg-center opacity-55 transition duration-700 group-hover:scale-105 group-hover:opacity-70" style={{ backgroundImage: `url(${imageUrl})` }} />
+      )}
+      <div className="absolute inset-0 bg-gradient-to-t from-[#101819] via-[#101819]/35 to-transparent" />
+      <div className="relative flex h-full min-h-[382px] flex-col justify-between">
+        <Icon icon={icon} className="text-5xl text-[#d8aa45]" />
+        <div>
+          <h3 className="text-4xl font-black">{title}</h3>
+          <p className="mt-4 max-w-xl text-lg leading-8 text-[#eef3ea]">{body}</p>
+          <span className="mt-6 inline-flex items-center gap-2 text-sm font-black uppercase text-[#d8aa45]">
+            {action} <Icon icon="mdi:arrow-right" />
+          </span>
+        </div>
+      </div>
+    </Link>
+  );
+}
+
+function ServiceItem({ icon, label, dark = true }: { icon: string; label: string; dark?: boolean }) {
+  return (
+    <div className={`flex items-start gap-3 border p-4 ${dark ? "border-white/15 bg-white/5 text-[#eef3ea]" : "border-[#d7ded7] bg-white text-[#243533]"}`}>
+      <Icon icon={icon} className="mt-1 shrink-0 text-xl text-[#d8aa45]" />
+      <p className="font-semibold leading-7">{label}</p>
     </div>
   );
+}
+
+function InfoPanel({ title, items }: { title: string; items: string[] }) {
+  return (
+    <div className="bg-[#101819] p-5 text-white">
+      <h3 className="text-lg font-black uppercase text-[#d8aa45]">{title}</h3>
+      <div className="mt-5 flex flex-wrap gap-2">
+        {items.map((item) => (
+          <span key={item} className="border border-white/15 px-3 py-2 text-xs font-bold uppercase text-[#eef3ea]">
+            {item}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function ContactCard({ icon, title, body, href }: { icon: string; title: string; body: string; href?: string }) {
+  const contentNode = (
+    <>
+      <Icon icon={icon} className="text-3xl text-[#101819]" />
+      <h3 className="mt-5 text-xl font-black">{title}</h3>
+      <p className="mt-3 leading-7 text-[#163836]">{body}</p>
+    </>
+  );
+
+  if (href) {
+    return (
+      <a href={href} className="bg-[#fbfcf7] p-6 transition hover:-translate-y-1 hover:bg-white">
+        {contentNode}
+      </a>
+    );
+  }
+
+  return <div className="bg-[#fbfcf7] p-6">{contentNode}</div>;
 }

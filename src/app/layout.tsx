@@ -13,8 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Kelainvest",
-  description: "Gestion de Patrimoine",
+  title: "Kela Invest | Immobilier & Travel Premium",
+  description:
+    "Gestion immobiliere, investissement, assistance juridique et agence de voyage premium sur mesure.",
 };
 
 export default function RootLayout({
@@ -23,7 +24,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="fr">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
